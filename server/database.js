@@ -16,31 +16,13 @@ const client = new Pool(connectionData);
 
 module.exports = {
     
-    async insertar(tipo) {
-        console.log(tipo,1);
-        let resultados = await conexion.query("insert into tipoMovimiento(tipo) values($1)", [tipo]);
-        console.log(resultados);
-        return resultados;
+    async insertar(request,response) {
+        const { tipo } = request.body;
+        await client.query("insert into tipoMovimiento(tipo) values($1)", [tipo]);
+        response.status(201).redirect("/tipoMovimientos");
     },
-    async obtener() {
-        const resultados = await client.query("select * from tipomovimiento t ");
-        return resultados.rows;
-    }/*,
-    async obtenerPorId(id) {
-        const resultados = await conexion.query(`select id, nombre, precio from productos where id = $1`, [id]);
-        return resultados.rows[0];
-    },
-    async actualizar(id, nombre, precio) {
-        const resultados = conexion.query(`update productos
-        set nombre = $1,
-        precio = $2
-        where id = $3`, [nombre, precio, id]);
-        return resultados;
-    },
-    async eliminar(id) {
-        const resultados = conexion.query(`delete from productos
-        where id = $1`, [id]);
-        return resultados;
-    },
-    */
+    async obtener(request,response) {
+        const resultados = await client.query("select * from tipoMovimiento t ");
+        response.status(200).json(resultados.rows);
+    }
 }
