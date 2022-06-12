@@ -34,7 +34,7 @@ const InputC = styled.input.attrs(props => ({
 `;
 
 const Form = () =>{
-    const {login, isLogged} = useUser();
+    const {login, isLogged, isLoginLoading, hasLoginError} = useUser();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -48,13 +48,23 @@ const Form = () =>{
 
     return (
         <>
+            {!isLoginLoading &&
             <form onSubmit={sendInfo}>
-            <InputC onChange={ev => setUsername(ev.target.value)} value={username} type='text' background='#FFFFFF' color="#000" placeholder="Usuario" display="block"></InputC>
-            <InputC onChange={ev =>setPassword(ev.target.value)} value={password} type='text' background='#FFFFFF' color="#000" placeholder="Contraseña" display="block"></InputC>
+                <InputC onChange={ev => setUsername(ev.target.value)} value={username} type='text' background='#FFFFFF' color="#000" placeholder="Usuario" display="block"></InputC>
+                <InputC onChange={ev =>setPassword(ev.target.value)} value={password} type='text' background='#FFFFFF' color="#000" placeholder="Contraseña" display="block"></InputC>
 
-            <Recordar></Recordar>
-            <InputC type='submit' background='rgba(34, 73, 87, 100%);' color="#fff" value="Iniciar Sesión" display="block"></InputC>
+                <Recordar></Recordar>
+                <InputC type='submit' background='rgba(34, 73, 87, 100%);' color="#fff" value="Iniciar Sesión" display="block"></InputC>
             </form>
+            }
+            {isLoginLoading &&
+                <p>Loading...</p>
+            }
+
+            {hasLoginError &&
+                <p>Error 😅</p>
+            }
+
         </>
     )
     
