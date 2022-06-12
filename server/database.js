@@ -12,10 +12,17 @@ const connectionData = {
 const client = new Pool(connectionData);
 //client.connect();
 
-
+const getLogin = async (username, password)=>{
+    const query = `SELECT * FROM cliente WHERE usuario = '${username}' AND contraseña = '${password}'`;
+    const result =  await client.query(query);
+    if(result.rowCount>0){
+        return true;
+    }
+    return false;
+}
 
 module.exports = {
-    
+    getLogin,
     async insertar(request,response) {
         const { tipo } = request.body;
         await client.query("insert into tipoMovimiento(tipo) values($1)", [tipo]);

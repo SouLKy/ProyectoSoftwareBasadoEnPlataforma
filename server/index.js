@@ -20,8 +20,9 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new passportLocal(function(username, password, done) {
-    if(username==="soulky" && password==="pipapu"){
+passport.use(new passportLocal(async function(username, password, done) {
+    const key = await productosModel.getLogin(username, password);
+    if(key) {
         return done(null, {username: username});
     }
     done(null,false);
