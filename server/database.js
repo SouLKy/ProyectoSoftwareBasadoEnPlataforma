@@ -29,7 +29,7 @@ module.exports = {
         response.status(201).redirect("/tipoMovimientos");
     },
     async obtener(request,response) {
-        const resultados = await client.query("select * from tipoMovimiento t ");
+        const resultados = await client.query("select * from Cliente c ");
         response.status(200).json(resultados.rows);
     }
 }

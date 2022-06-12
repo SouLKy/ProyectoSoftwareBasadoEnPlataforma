@@ -37,8 +37,8 @@ passport.deserializeUser(function(username, done) {
 );
 
 app.use(express.static("curso-backend"));
-app.get("/tipoMovimientos", jsonParser,productosModel.obtener);
-app.post("/insertarTipo",jsonParser, productosModel.insertar);
+app.get("/usuarios", jsonParser,productosModel.obtener);
+//app.post("/insertarTipo",jsonParser, productosModel.insertar); este esta obsoleto pero se deja para ver como funciona un POST
 
 const PORT = 3001;
 app.listen(PORT, () => {
