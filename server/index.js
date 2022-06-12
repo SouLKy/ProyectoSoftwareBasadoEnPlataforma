@@ -50,13 +50,21 @@ app.get("/",(req,res,next)=>{
     if (req.isAuthenticated()) return next();
     res.redirect("/login");
 }, (req, res) => {
-    res.send("Hola mundo");
+    res.render("home");
 }
 );
+app.post('/', function(req, res, next) {
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.redirect('/');
+    });
+  });
+
 app.get("/login", (req, res) => {
     res.render("login");
 }
 );
+
 app.post("/login", passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login'
