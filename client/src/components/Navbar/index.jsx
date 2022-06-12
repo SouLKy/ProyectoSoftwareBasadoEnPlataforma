@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Nav,NavLinkLogo ,NavLink, Bars, NavMenu} from './NavbarElements'
+import {Nav,NavLinkLogo ,NavLink, Bars, NavMenu, Blur} from './NavbarElements'
 import useUser from '../../hooks/UseUser'
 const Navbar = () =>{
 
@@ -22,6 +22,10 @@ const Navbar = () =>{
 
     return (
     <>
+        {
+            clicked &&
+                <Blur></Blur>
+        }
         <Nav>
             <NavLinkLogo to="/">
                 <img className="imgLogo" alt="img" src="http://www.ucn.cl/wp-content/uploads/2018/05/Escudo-UCN-Full-Color.png"></img>

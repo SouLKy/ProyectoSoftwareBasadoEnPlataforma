@@ -5,6 +5,13 @@ import {NavLink as Link} from 'react-router-dom'
 ex padding del nav
 padding: 0.5rem calc((100% - 1000px) / 2);
      */
+export const Blur = styled.div`
+background : rgb(0,0,0,0.6);
+height : 100%;
+position: absolute;
+width : 100%;
+z-index : 2;
+`
 
 export const Nav = styled.nav`
     background : rgb(34,73,87);
@@ -17,7 +24,7 @@ export const Nav = styled.nav`
     .links{
       position: absolute;
       background: rgb(229, 229, 229);
-      z-index:1;
+      z-index:3;
       top: -900px;
       left: 0px;
       right: 0;
@@ -92,6 +99,7 @@ export const NavLink = styled(Link)`
 
   
 export const Bars = styled.div`
+    z-index:3;
     display: none;
 
     @media screen and (max-width: 768px){
