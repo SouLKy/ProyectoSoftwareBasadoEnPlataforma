@@ -9,6 +9,10 @@ const session = require("express-session");
 const res = require("express/lib/response");
 const passportLocal = require("passport-local").Strategy;
 //const urlencodedParser = bodyParser.urlencoded({ extended: false })
+const cors = require('cors');
+
+app.use(cors({origin:['http://localhost:3000']}))
+
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
