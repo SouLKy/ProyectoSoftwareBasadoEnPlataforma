@@ -1,38 +1,83 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/*_____________________________________________*/
+/*Logo del navbar*/
+.imgLogo{
+  width: 90px;
+  background: none;
+  z-index:0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.textLogo{
+  margin-left: 10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* parte del hamburguer*/
+#open span:nth-child(1){
+  transform: rotate(45deg);
+  top: 13px;
+}
+#open span:nth-child(2){
+  opacity:0;
+}
+#open span:nth-child(3){
+  transform: rotate(-45deg);
+  top: 13px;
 }
 
-.App-link {
-  color: #61dafb;
+/*NavLink (menu cuando se hace click en hamburger)*/
+.Mobile{ 
+  border-bottom: 5px solid #000;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/*_____________________________________________*/
+
+.Footer{
+  width: 100%;
+  position: absolute;
+  left: 0%;
+  bottom: 0%;
+  z-index: 1;
 }
+
+.FooterText{
+  width: 100%;
+  position: absolute;
+  left: 0%;
+  bottom: 0%;
+  z-index: 2;
+  text-align: center;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 29px;
+  color: #fff;
+  text-decoration: overline #000;
+}
+
+.Footer2{
+  width: 92%;
+  position: absolute;
+  left: 0%;
+  bottom: 0%;
+  font-size: 40px;
+  color: aliceblue;
+
+}
+.Footer2 div{
+  width: 100%;
+  position: static;
+  text-align: center;
+}
+
+path{
+  height: 60%;
+}
+
+/*_____________________________________________*/
