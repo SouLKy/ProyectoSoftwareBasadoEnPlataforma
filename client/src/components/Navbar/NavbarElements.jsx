@@ -7,6 +7,7 @@ padding: 0.5rem calc((100% - 1000px) / 2);
      */
 export const Blur = styled.div`
 background : rgb(0,0,0,0.6);
+backdrop-filter: blur(2px);
 height : 100%;
 position: absolute;
 width : 100%;
