@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import styled from "styled-components";
 
 const Input = styled.input.attrs(props=> ({
@@ -15,12 +15,12 @@ const Div = styled.div`
 
 const Recordar = () =>{
     return (
-        <>
+        <Fragment>
             <Div>
                 <Input type='checkbox'></Input>
                 <label htmlFor="Remember">Recuérdame</label>
             </Div>
-        </>
+        </Fragment>
     )
 };
 

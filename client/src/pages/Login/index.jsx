@@ -1,61 +1,49 @@
-import React from "react";
+import React, {Fragment, useEffect} from "react";
+import { useNavigate} from "react-router-dom";
 import styled from "styled-components";
-import Recordar from './Recordar';
+import Form from "../../components/Form"
+
+import useUser from '../../hooks/UseUser'
 
 const Text1 = styled.h2`
     text-align:center;
+    color:rgba(34, 73, 87, 1);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 3em;
+    line-height: 120px;
+    
+    height:110px;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
 const Text2 = styled.p`
     text-align:center;
+    font-size: 1.3em;
+    color:rgba(34, 73, 87, 1);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
-
-const InputC = styled.input.attrs(props => ({
-    type: props.type,
-}))`
-    
-    display:${props => props.display};
-    margin:auto;
-    margin-top:20px;
-
-    width : 60%;
-    height: 40px;
-    
-    text-decoration:none;
-    border:none;
-
-    border-radius: 10px;
-    text-align: center;
-    background: ${props => props.background};
-
-    ::placeholder {
-        color : #000;
-    }
-
-    color : ${props => props.color};
-    
-`;
 
 
 
 const Login = () =>{
+    let navigate = useNavigate();
+    const {isLogged} = useUser();
+
+    useEffect(()=>{
+        if(isLogged) navigate("../Home/yes", {replace: true})
+    },[isLogged, navigate]) //verifica si está logeado o no, si lo está manda al home. lo verifica viendo si cambia el isLogged
+
     return (
-
-    <>
-        <div>
-            <Text1>PYTYM</Text1>
-            <Text2>Ingresa y genera reportes con los <br></br>datos cargados</Text2>
+        <Fragment>
+            <div>
+                <Text1>PYTYM</Text1>
+                <Text2>Ingresa y genera reportes con los <br></br>datos cargados</Text2>
         
-            <form>
-                <InputC type='text' background='#FFFFFF' color="#000" placeholder="Usuario" display="block"></InputC>
-                <InputC type='text' background='#FFFFFF' color="#000" placeholder="Contraseña" display="block"></InputC>
-
-                <Recordar></Recordar>
-                <InputC type='button' background='rgba(34, 73, 87, 100%);' color="#fff" value="Iniciar Sesión" display="block"></InputC>
-            </form>
-        </div>
-    </>
+                <Form></Form>
+            </div>
+        </Fragment>
     )
 };
 

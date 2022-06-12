@@ -1,6 +1,11 @@
 import React, {useState} from "react";
 import {Nav,NavLinkLogo ,NavLink, Bars, NavMenu} from './NavbarElements'
+import useUser from '../../hooks/UseUser'
 const Navbar = () =>{
+
+    
+    const {isLogged, logout} = useUser();
+    
 
     const [clicked, setClicked] = useState(false)
 
@@ -9,7 +14,11 @@ const Navbar = () =>{
         setClicked(!clicked)
     }
 
-
+    const Clicklogout = (ev) => {
+        ev.preventDefault();
+        handleClick();
+        logout();
+    }
 
     return (
     <>
@@ -22,10 +31,27 @@ const Navbar = () =>{
 
             <div className={`links ${clicked ? 'active' : ''}`}>
                 <NavLink className="Mobile" onClick={handleClick} to="/">Inicio</NavLink>
-                <NavLink className="Mobile" onClick={handleClick} to="/Contacto">Contacto</NavLink>
-                <NavLink className="Mobile" onClick={handleClick} to="/ConsultasFrecuentes">Consultas frecuentes</NavLink>
-                <NavLink className="Mobile" onClick={handleClick} to="/Login">Iniciar Sesión</NavLink>
+                <NavLink className="Mobile" onClick={handleClick} to="/Contact">Contacto</NavLink>
+                <NavLink className="Mobile" onClick={handleClick} to="/Querys">Consultas frecuentes</NavLink>
+                {
+                isLogged
                 
+                ?
+                <>
+                    <NavLink className="Mobile" onClick={handleClick} to="/Information">
+                        Información cuenta
+                    </NavLink>
+                
+                    <NavLink className="Mobile" onClick={Clicklogout} to="/Logout">
+                        Cerrar Sesión
+                    </NavLink>
+                </>
+
+                :
+                <NavLink className="Mobile" onClick={handleClick} to="/Login">
+                    Iniciar Sesión
+                </NavLink>
+                }
             </div>
 
             <div className='burguer'>
@@ -45,15 +71,28 @@ const Navbar = () =>{
                 <NavLink to="/">
                     Inicio
                 </NavLink>
-                <NavLink to="/Contacto">
+                <NavLink to="/Contact">
                     Contacto
                 </NavLink>
-                <NavLink to="/ConsultasFrecuentes">
+                <NavLink to="/Querys">
                 Consultas Frecuentes
                 </NavLink>
+                {
+                isLogged ?
+                <>
+                <NavLink to="/Information">
+                    Información cuenta
+                </NavLink>
+                <NavLink onClick={logout} to="/Logout">
+                    Cerrar sesión
+                </NavLink>
+                </>
+                :
                 <NavLink to="/Login">
                     Iniciar Sesión
                 </NavLink>
+                
+                }
             </NavMenu>
             
             
