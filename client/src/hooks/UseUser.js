@@ -1,7 +1,9 @@
 import { useCallback, useContext, useState } from 'react'
+import { useNavigate} from "react-router-dom";
 import Context from '../Context/UserContext'
 import LoginService from '../services/Login' 
 const useUser = () =>{
+    let navigate = useNavigate();
     const {jwt, setJwt} = useContext(Context)
 
     const [stateLoading, setStateLoading] = useState ({loading: false, error: false })
@@ -16,8 +18,8 @@ const useUser = () =>{
         LoginService({username, password})
             .then(jwt => {
                 setStateLoading({loading: false, error:false})
-                //setJwt(jwt)
                 window.sessionStorage.setItem('jwt', jwt)
+                setJwt(jwt)
             })
             .catch(err=>{
                 setStateLoading({loading: false, error:true})
@@ -28,7 +30,8 @@ const useUser = () =>{
 
     const logout = useCallback(()=>{
         window.sessionStorage.removeItem('jwt')
-        //setJwt(null)
+        setJwt(null)
+        navigate("../", {replace: true})
     }, [setJwt])
 
     return {

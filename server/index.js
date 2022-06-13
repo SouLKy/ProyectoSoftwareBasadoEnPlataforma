@@ -9,8 +9,10 @@ const session = require("express-session");
 const res = require("express/lib/response");
 const passportLocal = require("passport-local").Strategy;
 //const urlencodedParser = bodyParser.urlencoded({ extended: false })
-const cors = require('cors');
 
+const cors = require('cors'); //importado para poder hacer consultas desde otro puerto (frontend 3000)
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json()) //para poder leer el body que viene desde alguna petición (post login frontend)
 app.use(cors({origin:['http://localhost:3000']}))
 
 
@@ -69,8 +71,17 @@ app.get("/login", (req, res) => {
 }
 );
 
+/*
 app.post("/login", passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login'
     })
-);
+);*/
+
+app.post("/login", function(req, res){
+    const {username, password} = req.body
+    console.log(username) //se lee bien el nombre de usuario desde el frontend
+    //obtener el jwt de alguna manera, 
+    const jwt = "xd"
+    res.send({"jwt":jwt})
+})
