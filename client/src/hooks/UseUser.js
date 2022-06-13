@@ -20,6 +20,7 @@ const useUser = () =>{
                 setStateLoading({loading: false, error:false})
                 window.sessionStorage.setItem('jwt', jwt)
                 setJwt(jwt)
+                alert("Sesión iniciada correctamente")
             })
             .catch(err=>{
                 setStateLoading({loading: false, error:true})

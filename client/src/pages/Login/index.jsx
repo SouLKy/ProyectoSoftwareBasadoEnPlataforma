@@ -35,7 +35,6 @@ const Login = () =>{
         if(isLogged) {
             //../Home
             navigate("../", {replace: true})
-            console.log("Sesión iniciada correctamente")
         }
     },[isLogged, navigate]) //verifica si está logeado o no, si lo está manda al home. lo verifica viendo si cambia el isLogged
 
