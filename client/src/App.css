@@ -79,5 +79,9 @@
 path{
   height: 60%;
 }
+/*para cambiar el color del input type checkbox y otros*/
+input{
+  accent-color: rgb(34,73,87);
+}
 
 /*_____________________________________________*/

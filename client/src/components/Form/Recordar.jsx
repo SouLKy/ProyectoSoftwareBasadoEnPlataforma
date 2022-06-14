@@ -7,6 +7,7 @@ const Input = styled.input.attrs(props=> ({
     transform : scale(2.5);
     margin : 20px;
     z-index:0;
+    
 `;
 
 const Div = styled.div`
