@@ -40,7 +40,8 @@ export const BackgroundImage = styled.div`
   background : #fff;
   background-image: url(${props => props.url});
   background-repeat : no-repeat;
-  background-size: cover;
+  background-size: contain;
+  background-position-x: center;
   display:inline-block;
 `
 export const Go = styled.a`
