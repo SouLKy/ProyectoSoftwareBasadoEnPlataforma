@@ -25,11 +25,12 @@ const Home = () => {
       setImage(images[Countt])
     }
   },);
-  
+
   return (
     <>
     <ContentImages>
-      <Arrow  Right="30px solid rgb(34,73,87)">
+      <Arrow onClick={() =>
+        setCount(Countt-1)} Right="30px solid rgb(34,73,87)">
       </Arrow>
       <BackgroundImage url={Image}>
       </BackgroundImage>
