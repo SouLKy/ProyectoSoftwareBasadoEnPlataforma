@@ -10,43 +10,31 @@ const Home = () => {
   
 
   const [Countt, setCount] = useState(0);
-  const [Image, setImage] = useState(images[0]);
+  const [Image, setImage] = useState([images[0]]);
 
   useEffect(() => {
     if (Countt>2){
       setCount(0);
-      console.log(0)
+      setImage(images[Countt])
     }
-    if (Countt<0){
+    else if (Countt<0){
       setCount(2);
+      setImage(images[Countt])
     }
-  }, [Countt]);
-
-  const PreviousImage = () =>{
-    console.log("click")
-  }
-
-  const Incre = () =>{
-    setCount(Countt+1)
-  }
-
-  const NextImage = () =>{
-    console.log("click")
-    
-    setImage(images[Countt])
-    console.log(Countt)
-  };
-
+    else {
+      setImage(images[Countt])
+    }
+  },);
+  
   return (
     <>
     <ContentImages>
-      <Arrow onClick={PreviousImage} Right="30px solid rgb(34,73,87)">
+      <Arrow  Right="30px solid rgb(34,73,87)">
       </Arrow>
       <BackgroundImage url={Image}>
       </BackgroundImage>
-      <Arrow onClick={() =>{
-        setCount(Countt+1)
-        NextImage()}} Left="30px solid rgb(34,73,87)">
+      <Arrow onClick={() =>
+        setCount(Countt+1)} Left="30px solid rgb(34,73,87)">
       </Arrow>
     </ContentImages>
 
