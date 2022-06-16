@@ -10,9 +10,10 @@
 /*_____________________________________________*/
 /*Logo del navbar*/
 .imgLogo{
-  width: 90px;
+  width: 80px;
   background: none;
   z-index:0;
+  object-fit: cover;
 }
 
 .textLogo{

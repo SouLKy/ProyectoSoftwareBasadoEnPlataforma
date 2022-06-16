@@ -33,6 +33,7 @@ export const Nav = styled.nav`
       margin-right: auto;
       text-align: center;
       transition: all 1.5s ease;
+      
       a{
         color: #000;
         font-size: 2rem;
@@ -160,11 +161,10 @@ export const NavLinkLogo = styled(Link)`
 
   
   &:hover {
-    background: rgba(255, 255, 255, .4);
-  
-    border-radius: 4px;
-    outline: none;
-    border: none;
+    //background: rgba(255, 255, 255, .4);
+    //border-radius: 4px;
+    //outline: none;
+    //border: none;
   }
 `;
 

@@ -13,34 +13,8 @@ const passportLocal = require("passport-local").Strategy;
 const cors = require('cors'); //importado para poder hacer consultas desde otro puerto (frontend 3000)
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json()) //para poder leer el body que viene desde alguna petición (post login frontend)
-app.use(cors({origin:['http://localhost:3000']}))
-
-
-app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser('secret'));
-app.use(session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new passportLocal(async function(username, password, done) {
-    const key = await productosModel.getLogin(username, password);
-    if(key) {
-        return done(null, {username: username});
-    }
-    done(null,false);
-}));
-passport.serializeUser(function(user, done) {
-    done(null, user.username);
-}
-);
-passport.deserializeUser(function(username, done) {
-    done(null, {username: username});
-}
-);
+const clients = ['http://localhost:3000']
+app.use(cors({origin:clients}))
 
 app.use(express.static("curso-backend"));
 app.get("/usuarios", jsonParser,productosModel.obtener);
@@ -51,36 +25,10 @@ app.listen(PORT, () => {
     console.log("El servidor se ha iniciado en el puerto",PORT)
 });
 
-
-app.get("/",(req,res,next)=>{
-    if (req.isAuthenticated()) return next();
-    res.redirect("/login");
-}, (req, res) => {
-    res.render("home");
-}
-);
-app.post('/', function(req, res, next) {
-    req.logout(function(err) {
-      if (err) { return next(err); }
-      res.redirect('/');
-    });
-  });
-
-app.get("/login", (req, res) => {
-    res.render("login");
-}
-);
-
-/*
-app.post("/login", passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-    })
-);*/
-
 app.post("/login", function(req, res){
     const {username, password} = req.body
     console.log(username) //se lee bien el nombre de usuario desde el frontend
+    console.log(password)
     //obtener el jwt de alguna manera, 
     const jwt = "xd"
     res.send({"jwt":jwt})
