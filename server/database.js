@@ -1,4 +1,7 @@
+const res = require('express/lib/response');
+const jwt = require('jsonwebtoken');
 const { Pool } = require('pg');
+require('dotenv').config();
 
 
 const connectionData = {
@@ -16,9 +19,12 @@ const getLogin = async (username, password)=>{
     const query = `SELECT * FROM cliente WHERE usuario = '${username}' AND contraseña = '${password}'`;
     const result =  await client.query(query);
     if(result.rowCount>0){
-        return true;
+        return generateAccessToken(username);
     }
-    return false;
+    return undefined;
+}
+function generateAccessToken(username){
+    return jwt.sign({username}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1m'});
 }
 
 module.exports = {
