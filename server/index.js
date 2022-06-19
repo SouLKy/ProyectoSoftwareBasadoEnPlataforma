@@ -28,82 +28,52 @@ app.listen(PORT, () => {
     console.log("El servidor se ha iniciado en el puerto",PORT)
 });
 
+app.post("/api",verifyToken,(req,res)=>{
+    jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+        if(err){
+            res.sendStatus(403);
+        }else{
+            res.json({
+                message: "Esta es una petición autenticada",
+                authData
+            });
+        }
+})});
 ////////////////// 
 app.post("/login", async function(req, res){
     const {username, password} = req.body
-    console.log(username) //se lee bien el nombre de usuario desde el frontend
-    console.log(password)
-    //obtener el jwt de alguna manera, 
+    //console.log(username) //se lee bien el nombre de usuario desde el frontend
+    //console.log(password)
     const login = await productosModel.getLogin(username, password)
-    console.log(login)
-    if(typeof login !== "undefined"){
-
+    //console.log(login)
+    const user = {
+        username: "Pipe",
+    }
+    jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1m'}, (err, token) => {
         res.json({
-            token: login,
-            message: "success",
-            redirect: "/home" 
-        });
-        ///////// aaaaaa ¿¿por que no funciona el redirect??
-        //res.redirect("/")
+        token
+    })
+    })
+    /*if(typeof login !== "undefined"){
 
-        
-        /*
-        res.json({
-            token:login
-        })*/
-        
+        jwt.sign({username}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '10m'}, (err, token) => {
+            res.json({
+            token: token,
+        })
+        })
+        console.log(jwt.decode(login, process.env.ACCESS_TOKEN_SECRET))
     }
     else{
         res.status(401).json({
             error: "Usuario o contraseña incorrectos"
         })
     }
+    */
 })
-
-
-
-/////////////////////////////// Pruebas (tutorial)
-
-/*
-app.get("/", (req , res) => {
-    res.json({
-        mensaje: "Nodejs and JWT"
-    });
-});
-
-
-app.post("/login", (req , res) => {
-    const {username, password} = req.body
-    const user = {
-        username: username,
-    }
-
-    jwt.sign({user}, password, {expiresIn: '32s'}, (err, token) => {
-        res.json({
-            token
-        });
-    });
-
-});
-
-app.post("/posts", verifyToken, (req , res) => {
-
-    const {username, password} = req.body
-    jwt.verify(req.token, password, (error, authData) => {
-        if(error){
-            res.sendStatus(403);
-        }else{
-            res.json({
-                    mensaje: "Post fue creado",
-                    authData
-                });
-        }
-    });
-});
-
+//verifica si el token es correcto
 // Authorization: Bearer <token>
-async function verifyToken(req, res, next){
-     const bearerHeader  = await productosModel.getLogin(username, password)
+function verifyToken(req, res, next){
+    const bearerHeader = req.headers['authorization'];
      if(typeof bearerHeader !== 'undefined'){
           const bearerToken = bearerHeader.split(" ")[1];
           req.token  = bearerToken;
@@ -112,7 +82,3 @@ async function verifyToken(req, res, next){
          res.sendStatus(403);
      }
 }
-
-*/
-
-//////////////////////////////////////////////////////////////
