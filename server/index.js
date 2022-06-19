@@ -28,6 +28,7 @@ app.listen(PORT, () => {
     console.log("El servidor se ha iniciado en el puerto",PORT)
 });
 
+////////////////// 
 app.post("/login", async function(req, res){
     const {username, password} = req.body
     console.log(username) //se lee bien el nombre de usuario desde el frontend
@@ -36,9 +37,21 @@ app.post("/login", async function(req, res){
     const login = await productosModel.getLogin(username, password)
     console.log(login)
     if(typeof login !== "undefined"){
+
+        res.json({
+            token: login,
+            message: "success",
+            redirect: "/home" 
+        });
+        ///////// aaaaaa ¿¿por que no funciona el redirect??
+        //res.redirect("/")
+
+        
+        /*
         res.json({
             token:login
-        })
+        })*/
+        
     }
     else{
         res.status(401).json({
@@ -47,3 +60,59 @@ app.post("/login", async function(req, res){
     }
 })
 
+
+
+/////////////////////////////// Pruebas (tutorial)
+
+/*
+app.get("/", (req , res) => {
+    res.json({
+        mensaje: "Nodejs and JWT"
+    });
+});
+
+
+app.post("/login", (req , res) => {
+    const {username, password} = req.body
+    const user = {
+        username: username,
+    }
+
+    jwt.sign({user}, password, {expiresIn: '32s'}, (err, token) => {
+        res.json({
+            token
+        });
+    });
+
+});
+
+app.post("/posts", verifyToken, (req , res) => {
+
+    const {username, password} = req.body
+    jwt.verify(req.token, password, (error, authData) => {
+        if(error){
+            res.sendStatus(403);
+        }else{
+            res.json({
+                    mensaje: "Post fue creado",
+                    authData
+                });
+        }
+    });
+});
+
+// Authorization: Bearer <token>
+async function verifyToken(req, res, next){
+     const bearerHeader  = await productosModel.getLogin(username, password)
+     if(typeof bearerHeader !== 'undefined'){
+          const bearerToken = bearerHeader.split(" ")[1];
+          req.token  = bearerToken;
+          next();
+     }else{
+         res.sendStatus(403);
+     }
+}
+
+*/
+
+//////////////////////////////////////////////////////////////

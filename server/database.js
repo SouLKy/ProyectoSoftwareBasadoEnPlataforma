@@ -24,7 +24,7 @@ const getLogin = async (username, password)=>{
     return undefined;
 }
 function generateAccessToken(username){
-    return jwt.sign({username}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1m'});
+    return jwt.sign({username}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '10s'});
 }
 
 module.exports = {
