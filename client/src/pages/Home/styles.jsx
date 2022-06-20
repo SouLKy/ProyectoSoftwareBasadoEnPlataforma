@@ -6,7 +6,7 @@ export const ContentImages = styled.div`
   margin:auto;
 
   @media(min-width: 700px){
-    width:70%;
+    width:100%;
     margin-top:50px;
   }
   @media (max-width:700px) {
@@ -33,14 +33,14 @@ export const Arrow = styled.button`
 export const BackgroundImage = styled.div`
   margin:auto;
   border-radius:36px;
-  max-width:600px;
+  
   min-width:300px;
-  width:70%;
+  width:100%;
   height : 380px;
   background : #fff;
   background-image: url(${props => props.url});
   background-repeat : no-repeat;
-  background-size: contain;
+  background-size: cover;
   background-position-x: center;
   display:inline-block;
 `
