@@ -1,5 +1,5 @@
 import React from "react";
-import { Title,Post,Text1,Text2,Subtitle } from "./styles";
+import { Title,Post,Text1,Text2,Subtitle, Content } from "./styles";
 
 
 const Contact = () =>{
@@ -8,6 +8,7 @@ const Contact = () =>{
 
     return (
         <>
+        <Content>
             <Title>Contacto</Title>
             <Text1>Cualquier duda contactarse a los siguientes canales:</Text1>
             <Post>
@@ -25,7 +26,7 @@ const Contact = () =>{
                 <Text2>Facebook</Text2>
                 <Text2>Twitter</Text2>
             </Post>
-            
+        </Content>
         </>
     )
 }

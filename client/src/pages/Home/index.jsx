@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import { ContentImages, Arrow, BackgroundImage, Go} from './styles';
-
+import LoginImg from './LoginImg.svg'
 
 
 const Home = () => {
 
-  const images = ["https://picsum.photos/id/237/200/300","https://picsum.photos/800/800/?blur","https://cms-assets.tutsplus.com/cdn-cgi/image/width=360/uploads/users/1125/posts/30546/preview_image/RN.jpg"]
+  const images = [LoginImg,"https://picsum.photos/800/800/?blur","https://cms-assets.tutsplus.com/cdn-cgi/image/width=360/uploads/users/1125/posts/30546/preview_image/RN.jpg"]
 
   
 

@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
-
+export const Content = styled.div`
+    width:100%;
+    position:relative;
+    min-height: 100%;
+    
+`;
 
 export const Title = styled.h1`
     color:#224957;

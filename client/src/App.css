@@ -2,9 +2,19 @@
   margin: 0;
   padding: 0;
 }
-
 .App {
   text-align: center;
+}
+
+body{
+  position: relative;
+  min-height: 100vh;
+}
+
+@media screen and (max-height:708px) {
+  body{
+    padding-bottom: 3em;
+  }
 }
 
 /*_____________________________________________*/
@@ -40,12 +50,12 @@
 
 /*_____________________________________________*/
 
-.Footer{
-  width: 100%;
+
+
+.SvgFooter{
   position: absolute;
-  left: 0%;
-  bottom: 0%;
-  z-index: 1;
+  left:0;
+  bottom: 0;
 }
 
 .FooterText{
@@ -61,15 +71,23 @@
   color: #fff;
   text-decoration: overline #000;
 }
+.Footer{
+  width: 100%;
+  position: absolute;
+  left: 0%;
+  bottom: 0%;
+  z-index: 1;
+}
 
 .Footer2{
-  width: 92%;
+  width: 100%;
+
   position: absolute;
   left: 0%;
   bottom: 0%;
   font-size: 40px;
+  background-color: rgb(34,73,87);
   color: aliceblue;
-
 }
 .Footer2 div{
   width: 100%;
