@@ -43,6 +43,8 @@ export const BackgroundImage = styled.div`
   background-size: cover;
   background-position-x: center;
   display:inline-block;
+
+  
 `
 export const Go = styled.a`
   display:${props => props.display};

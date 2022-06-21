@@ -11,7 +11,7 @@ export default function login ({username, password}) {
         if(!res.ok) throw new Error('error response')
         return res.json()
     }).then(res=>{
-        const {jwt} = res
-        return jwt
+        const {token} = res
+        return token
     })
 }

@@ -51,7 +51,7 @@ app.post("/login", async function(req, res){
     }
     jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1m'}, (err, token) => {
         res.json({
-        token
+            token
     })
     })
     /*if(typeof login !== "undefined"){
