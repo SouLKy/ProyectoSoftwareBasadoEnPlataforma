@@ -51,7 +51,7 @@ const Form = () =>{
             {!isLoginLoading &&
             <form onSubmit={sendInfo}>
                 <InputC onChange={ev => setUsername(ev.target.value)} value={username} type='text' background='#FFFFFF' color="#000" placeholder="Usuario" display="block"></InputC>
-                <InputC onChange={ev =>setPassword(ev.target.value)} value={password} type='text' background='#FFFFFF' color="#000" placeholder="Contraseña" display="block"></InputC>
+                <InputC onChange={ev =>setPassword(ev.target.value)} value={password} type='password' background='#FFFFFF' color="#000" placeholder="Contraseña" display="block"></InputC>
 
                 <Recordar></Recordar>
                 <InputC type='submit' background='rgba(34, 73, 87, 100%);' color="#fff" value="Iniciar Sesión" display="block"></InputC>
