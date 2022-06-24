@@ -21,7 +21,6 @@ app.use(cors({origin:clients}))
 
 app.use(express.static("curso-backend"));
 app.get("/usuarios", jsonParser,productosModel.obtener);
-//app.post("/insertarTipo",jsonParser, productosModel.insertar); este esta obsoleto pero se deja para ver como funciona un POST
 
 const PORT = 3001;
 app.listen(PORT, () => {
@@ -39,37 +38,26 @@ app.post("/api",verifyToken,(req,res)=>{
             });
         }
 })});
-////////////////// 
+
 app.post("/login", async function(req, res){
     const {username, password} = req.body
-    //console.log(username) //se lee bien el nombre de usuario desde el frontend
-    //console.log(password)
     const login = await productosModel.getLogin(username, password)
-    //console.log(login)
-    const user = {
-        username: "Pipe",
-    }
-    jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1m'}, (err, token) => {
-        res.json({
-            token
-    })
-    })
-    /*if(typeof login !== "undefined"){
-
-        jwt.sign({username}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '10m'}, (err, token) => {
-            res.json({
-            token: token,
-        })
-        })
-        console.log(jwt.decode(login, process.env.ACCESS_TOKEN_SECRET))
+    console.log(login)//Imprime nombre de usuario
+    if(login==undefined){
+        res.sendStatus(403);
     }
     else{
-        res.status(401).json({
-            error: "Usuario o contraseña incorrectos"
+        const user = {
+            username: login,
+        }
+        jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'}, (err, token) => {
+            res.json({
+            token
+        })
         })
     }
-    */
 })
+
 //verifica si el token es correcto
 // Authorization: Bearer <token>
 function verifyToken(req, res, next){

@@ -15,11 +15,13 @@ const connectionData = {
 const client = new Pool(connectionData);
 //client.connect();
 
+//Comprueba si el usuario y contraseña recibidos existen en la base de datos y retorna el usuario
 const getLogin = async (username, password)=>{
     const query = `SELECT * FROM cliente WHERE usuario = '${username}' AND contraseña = '${password}'`;
     const result =  await client.query(query);
     if(result.rowCount>0){
-        return generateAccessToken(username);
+        const us = await result.rows[0]['usuario'];
+        return us;
     }
     return undefined;
 }
