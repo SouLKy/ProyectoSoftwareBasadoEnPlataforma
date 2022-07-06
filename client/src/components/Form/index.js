@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigate} from "react-router-dom";
 import styled from "styled-components";
 
@@ -6,6 +6,7 @@ import Recordar from '../Form/Recordar';
 
 import useUser from "../../hooks/UseUser";
 
+import Modal from "../Modal"
 const InputC = styled.input.attrs(props => ({
     type: props.type,
 }))`
@@ -37,8 +38,18 @@ const Form = () =>{
     const {login, isLogged, isLoginLoading, hasLoginError} = useUser();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [clickModal,setClickModal] = useState(true);
+
+    const handleClose = () =>{
+        setClickModal(false);
+    }
 
     let navigate = useNavigate();
+
+    useEffect(() => {
+        setClickModal(true)
+        console.log("1")
+    }, [hasLoginError]);
 
     const sendInfo = (ev) =>{
         ev.preventDefault();
@@ -57,13 +68,21 @@ const Form = () =>{
                 <InputC type='submit' background='rgba(34, 73, 87, 100%);' color="#fff" value="Iniciar Sesión" display="block"></InputC>
             </form>
             }
-            {isLoginLoading &&
-                <p>Loading...</p>
+            {isLoginLoading && clickModal &&
+                <Modal onClose={handleClose}>
+                    <p>Loading...</p>
+                </Modal>
+                   
             }
 
-            {hasLoginError &&
-                <p>Error 😅</p>
+            {hasLoginError && clickModal &&
+                <Modal onClose={handleClose}>
+                    <p>Error 😅</p>
+                </Modal>
             }
+            
+
+
 
         </>
     )

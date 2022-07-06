@@ -39,7 +39,7 @@ app.post("/api",verifyToken,(req,res)=>{
         }
 })});
 
-app.post("/login", async function(req, res){
+app.post("/login", async function(req, res){/*
     const {username, password} = req.body
     const login = await productosModel.getLogin(username, password)
     console.log(login)//Imprime nombre de usuario
@@ -55,7 +55,10 @@ app.post("/login", async function(req, res){
             token
         })
         })
-    }
+    }*/
+    res.json({
+        "token":"abc"
+    })
 })
 
 //verifica si el token es correcto
