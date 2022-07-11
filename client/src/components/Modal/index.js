@@ -31,14 +31,14 @@ const CloseModal = styled.button.attrs(props => ({
     onClick: props.onClick,
 }))`
     border:none;
-    background-color:#000;
+    background-color:transparent;
     cursor:pointer;
     margin-bottom:20px;
 `;
 
 export const Modal = ({children, onClose})=>{
     return <ContentModal>
-        <CloseModal onClick={onClose}>❎</ CloseModal>
+        <CloseModal className="close" onClick={onClose}></ CloseModal>
         <>{children}</>
         
     </ContentModal>

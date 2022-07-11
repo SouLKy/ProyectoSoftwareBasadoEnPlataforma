@@ -8,7 +8,7 @@ import useUser from "../../hooks/UseUser";
 
 import Modal from "../Modal"
 
-import { Loading } from "../Estado/index";
+import { Loading, ErrorUsuario } from "../Estado/index";
 const InputC = styled.input.attrs(props => ({
     type: props.type,
 }))`
@@ -76,7 +76,7 @@ const Form = () =>{
 
             {hasLoginError && clickModal &&
                 <Modal onClose={handleClose}>
-                    <p>Error 😅</p>
+                    <ErrorUsuario>Error 😅 <br></br> Nombre de usuario <br></br> o contraseña <br></br> incorrecta</ErrorUsuario>
                 </Modal>
             }
             

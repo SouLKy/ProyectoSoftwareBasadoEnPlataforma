@@ -10,3 +10,19 @@ export const Loading = styled.div`
     border-left-color: #1363DF;
     animation: spin 1s ease infinite;
 `;
+
+export const ErrorUsuario = styled.p`
+    margin:auto;
+    @media screen and (max-width: 767px){
+        margin-top:200px;
+        font-size:30px;
+    }
+    @media screen and (min-width: 768px){
+        margin-left:20px;
+    }
+    @media screen and (min-height:1000px){
+        font-size:40px
+    }
+    color:#fff;
+    text-align:center;
+`;
