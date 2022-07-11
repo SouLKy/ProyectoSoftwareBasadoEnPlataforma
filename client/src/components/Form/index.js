@@ -7,6 +7,8 @@ import Recordar from '../Form/Recordar';
 import useUser from "../../hooks/UseUser";
 
 import Modal from "../Modal"
+
+import { Loading } from "../Estado/index";
 const InputC = styled.input.attrs(props => ({
     type: props.type,
 }))`
@@ -68,11 +70,8 @@ const Form = () =>{
                 <InputC type='submit' background='rgba(34, 73, 87, 100%);' color="#fff" value="Iniciar Sesión" display="block"></InputC>
             </form>
             }
-            {isLoginLoading && clickModal &&
-                <Modal onClose={handleClose}>
-                    <p>Loading...</p>
-                </Modal>
-                   
+            {isLoginLoading &&
+                    <Loading></Loading>
             }
 
             {hasLoginError && clickModal &&

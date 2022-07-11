@@ -30,7 +30,6 @@ const Text2 = styled.p`
 const Login = () =>{
     let navigate = useNavigate();
     const {isLogged} = useUser();
-
     useEffect(()=>{
         if(isLogged) {
             //../Home

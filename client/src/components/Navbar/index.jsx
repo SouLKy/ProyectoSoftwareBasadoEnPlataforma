@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Nav,NavLinkLogo ,NavLink, Bars, NavMenu, Blur} from './NavbarElements'
 import useUser from '../../hooks/UseUser'
+import LogoPiggy from '../icons/LogoPiggy.svg'
 const Navbar = () =>{
 
     
@@ -28,8 +29,8 @@ const Navbar = () =>{
         }
         <Nav>
             <NavLinkLogo to="/">
-                <img className="imgLogo" alt="img" src="http://www.ucn.cl/wp-content/uploads/2018/05/Escudo-UCN-Full-Color.png"></img>
-                <p className="textLogo">Universidad <br></br>Católica del Norte</p>
+                <img className="imgLogo" alt="Logo" src={LogoPiggy}/>
+                <p className="textLogo">PYTYM <br></br>a tu comodidad</p>
             </NavLinkLogo>
 
 

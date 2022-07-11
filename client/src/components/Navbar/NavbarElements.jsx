@@ -15,7 +15,7 @@ z-index : 2;
 `
 
 export const Nav = styled.nav`
-    background : rgb(34,73,87);
+    background : #06283D;
     height : 80px;
     display: flex;
     justify-content: space-between;

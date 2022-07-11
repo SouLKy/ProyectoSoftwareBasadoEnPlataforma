@@ -86,7 +86,7 @@ body{
   left: 0%;
   bottom: 0%;
   font-size: 40px;
-  background-color: rgb(34,73,87);
+  background-color: #06283D;
   color: aliceblue;
 }
 .Footer2 div{
@@ -104,3 +104,12 @@ input{
 }
 
 /*_____________________________________________*/
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
