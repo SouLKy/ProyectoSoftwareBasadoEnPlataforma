@@ -27,7 +27,7 @@ app.listen(PORT, () => {
     console.log("El servidor se ha iniciado en el puerto",PORT)
 });
 
-app.post("/api",verifyToken,(req,res)=>{
+app.post("/api",ensureToken,(req,res)=>{
     jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
         if(err){
             res.sendStatus(403);
@@ -61,16 +61,37 @@ app.post("/login", async function(req, res){
         "token":"abc"
     })*/
 })
-
+/*
+app.post('/Data',(req,res)=>{
+    const token = req.headers['authorization']
+    jwt.verify(token,env.ACCESS_TOKEN_SECRET,(err,user)=>{
+        if(err){
+            res.status(403).json({
+                msg:'No autorizado'
+            })
+        }
+        else{
+            console.log('Subiendo archivos')
+            res.json({
+                msg:'Exito',
+                user
+            })
+        }
+    })
+})
+*/
 //verifica si el token es correcto
 // Authorization: Bearer <token>
-function verifyToken(req, res, next){
+function ensureToken(req,res,next){
     const bearerHeader = req.headers['authorization'];
-     if(typeof bearerHeader !== 'undefined'){
-          const bearerToken = bearerHeader.split(" ")[1];
-          req.token  = bearerToken;
-          next();
-     }else{
-         res.sendStatus(403);
-     }
+    console.log(bearerHeader)
+    if(typeof bearerHeader !='undefined'){
+        const bearer = bearerHeader.split(" ");
+        const bearerToken = bearer[1];
+        req.token = bearerToken;
+        next();
+    }
+    else{
+        res.sendStatus(403);
+    }
 }
