@@ -25,13 +25,56 @@ const getLogin = async (username, password)=>{
     }
     return undefined;
 }
-function generateAccessToken(username){
+
+
+
+async function generateAccessToken(username){
     return jwt.sign({username}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '10m'});
     
 }
+const saldoPorCuenta = async (idCuenta)=>{  // retorna una tupla de [abonos,cargos] relacionadas con la cuenta segun su id
+    const abonosQuery= await client.query(`select sum(abono)from  movimientobancario where idcuenta='${idCuenta}'`);
+    const abonos=await abonosQuery.rows[0]['sum'];
+    const cargosQuery= await client.query(`select sum(cargo)from  movimientobancario where idcuenta='${idCuenta}'`);
+    const cargos=await cargosQuery.rows[0]['sum'];
+    return([abonos,cargos]);
+}
+
+const cuentasPorCliente = async (rut)=>{  // retorna una lista [[nombrebanco1,nombrebanco2,...,nombrebancoN],[id1,,id2..idN]] segun rut
+    const cuentasQuery= await client.query(`select * from cuenta where rutcliente='${rut}'`);
+    const listaCuentas=new Array(cuentasQuery.rowCount);
+    const listaId=new Array(cuentasQuery.rowCount);
+    for(var i=0;i<cuentasQuery.rowCount;i++){
+        listaCuentas[i]=await cuentasQuery.rows[i]['nombrebanco'];
+        listaId[i]=await cuentasQuery.rows[i]['idcuenta'];
+    }
+    
+    return([listaCuentas,listaId]);/// [[nombres de banco], [ids por cuenta]]
+}
+
+const transaccionesPorCuenta = async (idCuenta)=>{  // 
+    const n=2;/// maximo de transacciones a mostrar
+    const transaccionesQuery= await client.query(`select * from  movimientobancario where idcuenta='${idCuenta}' order by fechamovimiento  desc limit ${n} `);
+    const listaDescripciones=new Array(transaccionesQuery.rowCount);
+    const listaFechas=new Array(transaccionesQuery.rowCount);
+    const listaMontos=new Array(transaccionesQuery.rowCount);
+    for(var i=0;i<transaccionesQuery.rowCount;i++){
+        listaDescripciones[i]=await transaccionesQuery.rows[i]['descripcion'];
+        listaFechas[i]=await transaccionesQuery.rows[i]['fechamovimiento'];
+        const abono=await transaccionesQuery.rows[i]['abono'];
+        const cargo=await transaccionesQuery.rows[i]['cargo'];
+        listaMontos[i]=cargo+abono;
+    }
+    
+    return([listaDescripciones,listaFechas,listaMontos]);
+}
+
 
 module.exports = {
     getLogin,
+    saldoPorCuenta,
+    cuentasPorCliente,
+    transaccionesPorCuenta,
     async insertar(request,response) {
         const { tipo } = request.body;
         await client.query("insert into tipoMovimiento(tipo) values($1)", [tipo]);
