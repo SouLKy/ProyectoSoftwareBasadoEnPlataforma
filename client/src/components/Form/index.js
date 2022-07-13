@@ -50,7 +50,6 @@ const Form = () =>{
 
     useEffect(() => {
         setClickModal(true)
-        console.log("1")
     }, [hasLoginError]);
 
     const sendInfo = (ev) =>{

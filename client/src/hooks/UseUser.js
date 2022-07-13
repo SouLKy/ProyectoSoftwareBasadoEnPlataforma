@@ -18,20 +18,23 @@ const useUser = () =>{
         LoginService({username, password})
             .then(jwt => {
                 setStateLoading({loading: false, error:false})
-                window.sessionStorage.setItem('jwt', jwt)
+                document.cookie = `token=${jwt}; max-age=${20}; path=/; samesite=strict`
+                //window.sessionStorage.setItem('jwt', jwt)
                 setJwt(jwt)
             })
             .catch(err=>{
                 setStateLoading({loading: false, error:true})
-                window.sessionStorage.removeItem('jwt')
+                //window.sessionStorage.removeItem('jwt')
                 console.log(err);
             })
     },[setJwt])
 
     const logout = useCallback(()=>{
-        window.sessionStorage.removeItem('jwt')
+        //window.sessionStorage.removeItem('jwt')
+        document.cookie=(`token=; expires = Thu, 01 Jan 1970 00:00:01 GMT;`)
         setJwt(null)
-        navigate("../", {replace: true})
+        window.location.reload();
+        //navigate("../", {replace: true})
     }, [setJwt])
 
     return {
