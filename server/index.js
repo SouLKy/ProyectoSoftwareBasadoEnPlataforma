@@ -48,7 +48,7 @@ app.post("/login", async function(req, res){
     }
     else{
         const user = {
-            username: login,
+            rut: login,
         }
         jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'}, (err, token) => {
             res.json({
@@ -56,30 +56,80 @@ app.post("/login", async function(req, res){
         })
         })
     }
-    /*
-    res.json({
-        "token":"abc"
-    })*/
 })
-/*
-app.post('/Data',(req,res)=>{
+/*retorna un json con [abonos,cargos] relacionadas con la cuenta segun su id
+{
+    "abonos": "$31,622,174.00",
+    "cargos": "-$31,622,174.00"
+}
+*/
+app.post('/balance',async function(req,res){
+    //const id = req.body
+    const id = 1
+    const balance = await productosModel.saldoPorCuenta(id)
+    res.json({
+        abonos: balance[0],
+        cargos: balance[1]
+    })
+})
+
+/*retorna un json con listas [[nombrebanco1,nombrebanco2,...,nombrebancoN],[id1,,id2..idN]] 
+{
+    "bancos": [
+        "Scotiabank",
+        "Itau"
+    ],
+    "id": [
+        1,
+        2
+    ]
+}
+*/
+app.post('/accountBank',async function(req,res){
     const token = req.headers['authorization']
-    jwt.verify(token,env.ACCESS_TOKEN_SECRET,(err,user)=>{
+    const token2 = token.slice(7,token.lenght)
+    jwt.verify(token2,process.env.ACCESS_TOKEN_SECRET,async function(err,user){
         if(err){
-            res.status(403).json({
-                msg:'No autorizado'
-            })
+            res.sendStatus(403)
         }
         else{
-            console.log('Subiendo archivos')
+            const rut = user['rut']
+            const cuenta = await productosModel.cuentasPorCliente(rut)
             res.json({
-                msg:'Exito',
-                user
+                bancos: cuenta[0],
+                id: cuenta[1]
             })
         }
     })
 })
+/*
+{
+    "descripciones": [
+        "TEF 11404034-7 CRISTIAN ALEJAN",
+        "TEF 76800593-1 Maxxa Capital S"
+    ],
+    "fechas": [
+        "2022-05-31T04:00:00.000Z",
+        "2022-05-31T04:00:00.000Z"
+    ],
+    "montos": [
+        "$0.00$1,200,000.00",
+        "-$966,902.00$0.00"
+    ]
+}
 */
+app.post('/transaction',async function(req,res){
+    //const id = req.body
+    const id = 1
+    const transaction = await productosModel.transaccionesPorCuenta(id)
+    res.json({
+        descripciones: transaction[0],
+        fechas: transaction[1],
+        montos: transaction[2]
+    })
+})
+
+//De aqui para abajo no tomar en cuenta el codigo Atte:Soulky
 //verifica si el token es correcto
 // Authorization: Bearer <token>
 function ensureToken(req,res,next){
@@ -95,3 +145,14 @@ function ensureToken(req,res,next){
         res.sendStatus(403);
     }
 }
+
+app.post("/l",async function(req,res){
+    const user = {
+        rut:'20168189-8'
+    }
+    jwt.sign(user,process.env.ACCESS_TOKEN_SECRET,{expiresIn:'1h'},(err,token)=>{
+        res.json({
+            token
+        })
+    })
+})

@@ -20,7 +20,7 @@ const getLogin = async (username, password)=>{
     const query = `SELECT * FROM cliente WHERE usuario = '${username}' AND contraseña = '${password}'`;
     const result =  await client.query(query);
     if(result.rowCount>0){
-        const us = await result.rows[0]['usuario'];
+        const us = await result.rows[0]['rut'];
         return us;
     }
     return undefined;
@@ -28,10 +28,7 @@ const getLogin = async (username, password)=>{
 
 
 
-async function generateAccessToken(username){
-    return jwt.sign({username}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '10m'});
-    
-}
+
 const saldoPorCuenta = async (idCuenta)=>{  // retorna una tupla de [abonos,cargos] relacionadas con la cuenta segun su id
     const abonosQuery= await client.query(`select sum(abono)from  movimientobancario where idcuenta='${idCuenta}'`);
     const abonos=await abonosQuery.rows[0]['sum'];
