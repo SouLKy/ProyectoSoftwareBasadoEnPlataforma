@@ -59,8 +59,9 @@ app.post("/login", async function(req, res){
 })
 /*retorna un json con [abonos,cargos] relacionadas con la cuenta segun su id
 {
-    "abonos": "$31,622,174.00",
-    "cargos": "-$31,622,174.00"
+    "abonos": 31622174,
+    "cargos": -31622174,
+    "total": 0
 }
 */
 app.post('/balance',async function(req,res){
@@ -69,7 +70,8 @@ app.post('/balance',async function(req,res){
     const balance = await productosModel.saldoPorCuenta(id)
     res.json({
         abonos: balance[0],
-        cargos: balance[1]
+        cargos: balance[1],
+        total: balance[0]+balance[1]
     })
 })
 
@@ -113,8 +115,8 @@ app.post('/accountBank',async function(req,res){
         "2022-05-31T04:00:00.000Z"
     ],
     "montos": [
-        "$0.00$1,200,000.00",
-        "-$966,902.00$0.00"
+        1200000,
+        -233098
     ]
 }
 */
