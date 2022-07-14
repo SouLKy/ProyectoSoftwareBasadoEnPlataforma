@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 
 const Context = React.createContext({})
 
@@ -14,11 +14,10 @@ export function UserContextProvider ({children}) {
             )
         return cookies.token
     }
-    
+
     const [jwt, setJwt] = useState(()=>ObtenerCookie())
     //console.log("jwt: userContext",jwt)
     //es una buena práctica ponerlo en una función, agota muchos recursos y se reenderizaría si es que llegara a cambiar el componente de vez en cuando, aunque aqui no pasa
-
     
     return <Context.Provider value={{jwt, setJwt}}>
         {children}

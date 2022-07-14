@@ -55,7 +55,7 @@ const Form = () =>{
     const sendInfo = (ev) =>{
         ev.preventDefault();
         login({username, password})
-        if(isLogged) navigate("../Home", {replace: true})
+        if(isLogged) navigate("../", {replace: true})
     }
 
     return (

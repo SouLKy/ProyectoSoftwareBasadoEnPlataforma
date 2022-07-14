@@ -88,7 +88,7 @@ const Navbar = () =>{
                 <NavLink to="/Information">
                     Información cuenta
                 </NavLink>
-                <NavLink onClick={logout} to="/Logout">
+                <NavLink onClick={logout} to="/">
                     Cerrar sesión
                 </NavLink>
                 </>

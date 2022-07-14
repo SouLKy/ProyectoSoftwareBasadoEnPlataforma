@@ -18,8 +18,8 @@ const useUser = () =>{
         LoginService({username, password})
             .then(jwt => {
                 setStateLoading({loading: false, error:false})
-                document.cookie = `token=${jwt}; max-age=${20}; path=/; samesite=strict`
-                //window.sessionStorage.setItem('jwt', jwt)
+                document.cookie = `token=${jwt}; max-age=${10}; path=/; samesite=strict`
+                //window.sessionStorage.setItem('jwt', true)
                 setJwt(jwt)
             })
             .catch(err=>{
@@ -33,8 +33,9 @@ const useUser = () =>{
         //window.sessionStorage.removeItem('jwt')
         document.cookie=(`token=; expires = Thu, 01 Jan 1970 00:00:01 GMT;`)
         setJwt(null)
-        window.location.reload();
-        //navigate("../", {replace: true})
+        
+        //window.location.reload();
+        navigate("../login", {replace: true})
     }, [setJwt])
 
     return {
