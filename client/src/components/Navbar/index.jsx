@@ -76,6 +76,9 @@ const Navbar = () =>{
                 <NavLink to="/">
                     Inicio
                 </NavLink>
+                <NavLink to = "/Lobby">
+                    Lobby
+                </NavLink>
                 <NavLink to="/Contact">
                     Contacto
                 </NavLink>
@@ -96,6 +99,10 @@ const Navbar = () =>{
                 <NavLink to="/Login">
                     Iniciar Sesión
                 </NavLink>
+
+                
+
+
                 
                 }
             </NavMenu>
