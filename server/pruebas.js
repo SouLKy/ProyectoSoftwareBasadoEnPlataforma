@@ -2,15 +2,28 @@ const productosModel = require("./database");
 console.log("Ejecutando pruebas.js");
 
 
+const imprimirTransacciones = async (lista)=>{
+    console.log("\nDESCRIPCION                     FECHA                                                          MONTO");
+    for(var i=0;i<lista[0].length;i++){
+        console.log("-----------------------------------------------------------------------------------------------------");
+        console.log(lista[0][i]+" | "+lista[1][i]+" | $ "+lista[2][i]);
+        //// lista[0][i] ----> descripcion de la transferencia i
+        //// lista[1][i] ----> fecha de la transferencia i
+        //// lista[2][i] ----> monto de la transferencia i
+    }
+    return;
+}
 
 (async () => {
     /// prueba saldoPorCuenta
-    //console.log(await productosModel.saldoPorCuenta('1'))
+    //const a=await productosModel.saldoPorCuenta('1');
+    //console.log(a);
 
     /// prueba cuentasPorCliente
-    //console.log(await productosModel.cuentasPorCliente('20168189-8'))
+    ///console.log(await productosModel.cuentasPorCliente('20168189-8'));
     
     /// prueba transaccionesPorCuenta
-    console.log(await (await productosModel.transaccionesPorCuenta('1')))
+    ///console.log(await (await productosModel.transaccionesPorCuenta('1')));
+    imprimirTransacciones( (await productosModel.transaccionesPorCuenta('1')));
 }
 )()

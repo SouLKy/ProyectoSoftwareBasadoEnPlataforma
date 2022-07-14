@@ -31,10 +31,10 @@ const getLogin = async (username, password)=>{
 
 const saldoPorCuenta = async (idCuenta)=>{  // retorna una tupla de [abonos,cargos] relacionadas con la cuenta segun su id
     const abonosQuery= await client.query(`select sum(abono)from  movimientobancario where idcuenta='${idCuenta}'`);
-    const abonos=await abonosQuery.rows[0]['sum'];
+    const abonos=await abonosQuery.rows[0]['sum'].replace('$','').replace(/,/g,'');
     const cargosQuery= await client.query(`select sum(cargo)from  movimientobancario where idcuenta='${idCuenta}'`);
-    const cargos=await cargosQuery.rows[0]['sum'];
-    return([abonos,cargos]);
+    const cargos=await cargosQuery.rows[0]['sum'].replace('$','').replace(/,/g,'');
+    return([parseFloat(abonos),parseFloat(cargos)]);
 }
 
 const cuentasPorCliente = async (rut)=>{  // retorna una lista [[nombrebanco1,nombrebanco2,...,nombrebancoN],[id1,,id2..idN]] segun rut
@@ -50,17 +50,24 @@ const cuentasPorCliente = async (rut)=>{  // retorna una lista [[nombrebanco1,no
 }
 
 const transaccionesPorCuenta = async (idCuenta)=>{  // 
-    const n=2;/// maximo de transacciones a mostrar
-    const transaccionesQuery= await client.query(`select * from  movimientobancario where idcuenta='${idCuenta}' order by fechamovimiento  desc limit ${n} `);
+    const n=5 ;/// maximo de transacciones a mostrar
+    const transaccionesQuery= await client.query(`select * from  movimientobancario where idcuenta='${idCuenta}' order by fechamovimiento  desc `);
     const listaDescripciones=new Array(transaccionesQuery.rowCount);
     const listaFechas=new Array(transaccionesQuery.rowCount);
     const listaMontos=new Array(transaccionesQuery.rowCount);
     for(var i=0;i<transaccionesQuery.rowCount;i++){
         listaDescripciones[i]=await transaccionesQuery.rows[i]['descripcion'];
-        listaFechas[i]=await transaccionesQuery.rows[i]['fechamovimiento'];
-        const abono=await transaccionesQuery.rows[i]['abono'];
-        const cargo=await transaccionesQuery.rows[i]['cargo'];
-        listaMontos[i]=cargo+abono;
+
+        const fecha=await transaccionesQuery.rows[i]['fechamovimiento'];
+        listaFechas[i]=fecha;
+
+        const abono=await transaccionesQuery.rows[i]['abono'].replace('$','').replace(/,/g,'');
+        const abonoInt=parseFloat(abono);
+        
+        const cargo=await transaccionesQuery.rows[i]['cargo'].replace('$','').replace(/,/g,'');
+        const cargoInt=parseFloat(cargo);
+
+        listaMontos[i]=(cargoInt)+(abonoInt);
     }
     
     return([listaDescripciones,listaFechas,listaMontos]);
