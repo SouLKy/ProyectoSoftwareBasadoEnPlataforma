@@ -9,6 +9,7 @@ const Contact = () =>{
     return (
         <>
         <Content>
+            
             <Title>Contacto</Title>
             <Text1>Cualquier duda contactarse a los siguientes canales:</Text1>
             <Post>
