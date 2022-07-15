@@ -118,8 +118,8 @@ const registrarCliente = async (rut,nombre,contacto,usuario,contraseña)=>{
     ///insert into cliente(rut,nombre,contacto,usuario,contraseña) values('20007475-4','nombre','contacto@gmail.com','username','123')
     const registrarQuery= await (await client.query(`insert into cliente(rut,nombre,contacto,usuario,contraseña) 
     values('${rut}','${nombre}','${contacto}','${usuario}','${contraseña}')`));
-    return registrarQuery;
-    //return 'Registrado con exito';
+    //return registrarQuery;
+    return 'Registrado con exito';
 }
 
 module.exports = {
