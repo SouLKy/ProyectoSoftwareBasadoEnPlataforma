@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import { ContentImages, Arrow, BackgroundImage, Go} from './styles';
-import LoginImg from './LoginImg.svg'
+import {Title, SubTitle, Box, Imagen, ButtonReg, Container} from './styles';
 
 
 const Home = () => {
 
-  const images = [LoginImg,"https://picsum.photos/800/800/?blur","https://cms-assets.tutsplus.com/cdn-cgi/image/width=360/uploads/users/1125/posts/30546/preview_image/RN.jpg"]
+
+  /*
+  const images = ["https://picsum.photos/800/800/?blur","https://cms-assets.tutsplus.com/cdn-cgi/image/width=360/uploads/users/1125/posts/30546/preview_image/RN.jpg"]
 
   
 
@@ -25,8 +26,10 @@ const Home = () => {
       setImage(images[Countt])
     }
   },);
+  */
 
   return (
+    /*
     <>
     <ContentImages>
       <Arrow onClick={() =>
@@ -41,6 +44,15 @@ const Home = () => {
 
     <Go href = "login" type ='button' background='rgba(34, 73, 87, 100%)' color="#fff" value="Iniciar Sesión" display="block">Iniciar Sesión</Go>
     </>
+    */
+   <>
+    <Container>
+        <Title>Controla las finanzas de tu empresa</Title>
+        <SubTitle>Te ayudamos a realizar tu conciliacion bancaria</SubTitle>
+        <ButtonReg>REGISTRATE AHORA</ButtonReg>
+        <Imagen></Imagen>
+    </Container>
+   </>
   );
 };
 
