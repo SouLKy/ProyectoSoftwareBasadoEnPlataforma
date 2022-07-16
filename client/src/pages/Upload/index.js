@@ -6,7 +6,7 @@ const Upload = () =>{
 
     const sendInfo = (ev) =>{
         ev.preventDefault()
-        SendFile(InfText)
+        SendFile({InfText})
     }
 
     const SaveInfo = (ev) =>{
