@@ -6,7 +6,7 @@ export default function SendFile ({InfText}) {
         headers: {
             "Content-Type":"application/json"
         },
-        body: JSON.stringify(InfText)
+        body: JSON.stringify({InfText})
     }).then(res => {
         if(!res.ok) throw new Error('error response')
         return res.json()
