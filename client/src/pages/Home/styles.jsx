@@ -89,7 +89,13 @@ export const SubTitle = styled.h4`
 export const Imagen = styled(IndexPage)`
   width: 614px;
   height: 487px;
+  @media screen and (max-width: 768px){
+    width: 300px;
+  }
 
+  @media screen and (min-width: 769px){
+    width: 614px;
+  }
   grid-area: Imagen;
 `;
 
