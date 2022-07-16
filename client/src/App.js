@@ -8,6 +8,7 @@ import Error from "./pages/Error"
 import Contact from './pages/Contact';
 import Account from './pages/Account'
 import Lobby from './pages/Lobby'
+import Upload from './pages/Upload';
 import {UserContextProvider} from './Context/UserContext'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/Lobby" exact element={<Lobby/>}></Route>
           <Route path="/Contact" exact element={<Contact/>}></Route>
           <Route path="/Information" exact element={<Account/>}></Route>
+          <Route path="/Upload" exact element={<Upload/>}></Route>
           <Route path="/:rest/*" exact element={<Error/>}></Route>
       </Routes>
       <Footer/>

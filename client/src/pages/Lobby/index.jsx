@@ -5,9 +5,9 @@ import { Grid } from "@mui/material";
 
 export default function Depositos(){
     return(
-        <Layout>
+        //<Layout>
             <Grid container spacing = {2} Justify = "center" alignItems="center"> </Grid>
-        </Layout>
+        //</Layout>
 
         
     )
