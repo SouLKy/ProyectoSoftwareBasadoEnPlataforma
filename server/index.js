@@ -143,8 +143,8 @@ app.post('/transaction',async function(req,res){
 })
 
 app.post('/register',async function(req,res){
-    const {rut,nombre,contacto,usuario,contraseña} = req.body
-    await productosModel.registrarCliente(rut,nombre,contacto,usuario,contraseña,async function(err,reg){
+    const {rut,nombre,contacto,username,password} = req.body
+    await productosModel.registrarCliente(rut,nombre,contacto,username,password,async function(err,reg){
         if(err){
             res.sendStatus(403)
         }
