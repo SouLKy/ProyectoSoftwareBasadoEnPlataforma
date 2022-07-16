@@ -9,6 +9,7 @@ import Contact from './pages/Contact';
 import Account from './pages/Account'
 import Lobby from './pages/Lobby'
 import Upload from './pages/Upload';
+import Register from './pages/Register';
 import {UserContextProvider} from './Context/UserContext'
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/Contact" exact element={<Contact/>}></Route>
           <Route path="/Information" exact element={<Account/>}></Route>
           <Route path="/Upload" exact element={<Upload/>}></Route>
+          <Route path="/Register" exact element={<Register/>}></Route>
           <Route path="/:rest/*" exact element={<Error/>}></Route>
       </Routes>
       <Footer/>

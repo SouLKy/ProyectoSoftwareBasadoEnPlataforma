@@ -1,16 +1,17 @@
 const ENDPOINT = 'http://localhost:3001'
 
-export default function SendFile ({InfText}) {
-    return fetch(`${ENDPOINT}/File`,{
+export default function register ({rut, nombre, contacto, username, password}) {
+    return fetch(`${ENDPOINT}/register`,{
         method: 'POST',
         headers: {
             "Content-Type":"application/json"
         },
-        body: JSON.stringify(InfText)
+        body: JSON.stringify({rut, nombre, contacto, username, password})
     }).then(res => {
         if(!res.ok) throw new Error('error response')
         return res.json()
     }).then(res=>{
-        console.log("archivo enviado")
+        const {estado} = res
+        alert(estado)
     })
 }
