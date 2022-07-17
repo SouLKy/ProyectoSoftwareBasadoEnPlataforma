@@ -24,6 +24,9 @@ const imprimirTransacciones = async (lista)=>{
     
     /// prueba transaccionesPorCuenta
     ///console.log(await (await productosModel.transaccionesPorCuenta('1')));
-    imprimirTransacciones( (await productosModel.transaccionesPorCuenta('1')));
+    //imprimirTransacciones( (await productosModel.nTransaccionesPorCuenta('1',5)));
+
+    /////prueba registrarCliente
+    console.log(await(productosModel.registrarCliente('20007475-4','nombre','contacto@gmail.com','username','123')));
 }
 )()

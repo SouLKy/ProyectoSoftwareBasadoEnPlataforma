@@ -49,8 +49,9 @@ const cuentasPorCliente = async (rut)=>{  // retorna una lista [[nombrebanco1,no
     return([listaCuentas,listaId]);/// [[nombres de banco], [ids por cuenta]]
 }
 
-const transaccionesPorCuenta = async (idCuenta)=>{  // 
-    const n=5 ;/// maximo de transacciones a mostrar
+const transaccionesPorCuenta = async (idCuenta)=>{ //// obtiene TODAS las transacciones de la cuenta
+    /// retorna [[descripcion1,...,descripcionN],[fecha1,...,fechaN],[monto1,...,montoN]] 
+
     const transaccionesQuery= await client.query(`select * from  movimientobancario where idcuenta='${idCuenta}' order by fechamovimiento  desc `);
     const listaDescripciones=new Array(transaccionesQuery.rowCount);
     const listaFechas=new Array(transaccionesQuery.rowCount);
@@ -73,12 +74,61 @@ const transaccionesPorCuenta = async (idCuenta)=>{  //
     return([listaDescripciones,listaFechas,listaMontos]);
 }
 
+const nTransaccionesPorCuenta = async (idCuenta,n)=>{  //// obtiene las N transacciones de la cuenta
+    /// retorna [[descripcion1,...,descripcionN],[fecha1,...,fechaN],[monto1,...,montoN]] 
+
+    const transaccionesQuery= await client.query(`select * from  movimientobancario where idcuenta='${idCuenta}' order by fechamovimiento  desc limit ${n}`);
+    const listaDescripciones=new Array(transaccionesQuery.rowCount);
+    const listaFechas=new Array(transaccionesQuery.rowCount);
+    const listaMontos=new Array(transaccionesQuery.rowCount);
+    for(var i=0;i<transaccionesQuery.rowCount;i++){
+        listaDescripciones[i]=await transaccionesQuery.rows[i]['descripcion'];
+
+        const fecha=await transaccionesQuery.rows[i]['fechamovimiento'];
+        listaFechas[i]=fecha;
+
+        const abono=await transaccionesQuery.rows[i]['abono'].replace('$','').replace(/,/g,'');
+        const abonoInt=parseFloat(abono);
+        
+        const cargo=await transaccionesQuery.rows[i]['cargo'].replace('$','').replace(/,/g,'');
+        const cargoInt=parseFloat(cargo);
+
+        listaMontos[i]=(cargoInt)+(abonoInt);
+    }
+    
+    return([listaDescripciones,listaFechas,listaMontos]);
+}
+
+const registrarCliente = async (rut,nombre,contacto,usuario,contraseña)=>{  
+    //// verificar que el rut no este registrado
+    const buscarRutsQuery= await (await client.query(`select * from cliente c where rut='${rut}'`)).rowCount;
+    if(buscarRutsQuery=='1'){
+        return 'Error (el rut ya fue registrado)';
+    }
+    //// verificar que el nombre no este registrado
+    const buscarNombreQuery= await (await client.query(`select * from cliente c where nombre='${nombre}'`)).rowCount;
+    if(buscarNombreQuery=='1'){
+        return 'Error (el nombre ya fue registrado)';
+    }
+    //// verificar que el nombre de usuario no este registrado
+    const buscarNombreDeUsuario= await (await client.query(`select * from cliente c where usuario='${usuario}'`)).rowCount;
+    if(buscarNombreDeUsuario=='1'){
+        return 'Error (el nombre de usuario ya fue registrado)';
+    }
+    ///insert into cliente(rut,nombre,contacto,usuario,contraseña) values('20007475-4','nombre','contacto@gmail.com','username','123')
+    const registrarQuery= await (await client.query(`insert into cliente(rut,nombre,contacto,usuario,contraseña) 
+    values('${rut}','${nombre}','${contacto}','${usuario}','${contraseña}')`));
+    //return registrarQuery;
+    return 'Registrado con exito';
+}
 
 module.exports = {
     getLogin,
     saldoPorCuenta,
     cuentasPorCliente,
     transaccionesPorCuenta,
+    nTransaccionesPorCuenta,
+    registrarCliente,
     async insertar(request,response) {
         const { tipo } = request.body;
         await client.query("insert into tipoMovimiento(tipo) values($1)", [tipo]);

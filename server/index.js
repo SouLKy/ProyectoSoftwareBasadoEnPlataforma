@@ -121,16 +121,40 @@ app.post('/accountBank',async function(req,res){
 }
 */
 app.post('/transaction',async function(req,res){
-    //const id = req.body
+    //const {id,n} = req.body
     const id = 1
-    const transaction = await productosModel.transaccionesPorCuenta(id)
+    const n = 2
+    if(id==0){
+        const transaction = await productosModel.transaccionesPorCuenta(id)
+        res.json({
+            descripciones: transaction[0],
+            fechas: transaction[1],
+            montos: transaction[2]
+        })
+    }
+    else{
+    const transaction = await productosModel.nTransaccionesPorCuenta(id,n)
     res.json({
         descripciones: transaction[0],
         fechas: transaction[1],
         montos: transaction[2]
     })
+}
 })
 
+app.post('/register',async function(req,res){
+    const {rut,nombre,contacto,username,password} = req.body
+    await productosModel.registrarCliente(rut,nombre,contacto,username,password,async function(err,reg){
+        if(err){
+            res.sendStatus(403)
+        }
+        else{
+            res.json({
+                estado: reg
+            })
+        }
+    })
+})
 //De aqui para abajo no tomar en cuenta el codigo Atte:Soulky
 //verifica si el token es correcto
 // Authorization: Bearer <token>
