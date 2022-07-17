@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Content = styled.div`
     width:100%;
-    position:relative;
+    position:center;
     min-height: 100%;
     
 `;
@@ -37,4 +37,13 @@ export const Post = styled.div`
     margin-block-end: 1em;
     margin-inline-start: 40px;
     margin-inline-end: 40px;
+`;
+export const table = styled.table`
+    color:#ffffff;
+    margin: auto;
+    padding : 10px 20px;
+
+`;
+export const th = styled.th`
+    font-style:roboto:
 `;
