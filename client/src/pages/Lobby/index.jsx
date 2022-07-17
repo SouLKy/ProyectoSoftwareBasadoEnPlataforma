@@ -1,4 +1,3 @@
-/*
 import React from "react";
 import { Title,Post,Text1,Text2,Subtitle, Content } from "./styles";
 import Typography from '@mui/material/Typography'
@@ -13,4 +12,3 @@ export default function Depositos(){
         
     )
 }
-*/
