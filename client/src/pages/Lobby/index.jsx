@@ -11,6 +11,27 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TablePagination from "@mui/material/TablePagination";
 
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: "#06283D",
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+  
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+  }));
+  
 //DEFINICION DE LAS COLUMNAS FIJAS
 const columns = [
     { id: 'idTrans', label: 'ID transaccion', minWidth: 170 },
@@ -68,32 +89,32 @@ export default function Transferencias(){
     };
     return(
         <Content>
-            <Post>
+            <Paper elevation ={6} variant = "outlined">
                 <Title>Saldo Disponible</Title>
                 <Subtitle>$20.000</Subtitle>
-            </Post>
+            </Paper>
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                 <TableContainer sx={{ maxHeight: 440 }}>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
                                 {columns.map((column) => (
-                                <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>
+                                <StyledTableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>
                                 {column.label}
-                                </TableCell>
+                                </StyledTableCell>
                                 ))}
                             </TableRow>
                         </TableHead>
                         <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                 return (
-                    <TableRow key ={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
-                    <TableCell align = "left">{row.nombre}</TableCell>
-                    <TableCell align = "left">{row.fecha}</TableCell>
-                    <TableCell align = "left">{row.remitente}</TableCell>
-                    <TableCell align = "left">{row.destinatario}</TableCell>
-                    <TableCell align = "left">{row.monto}</TableCell>
-                    </TableRow>
+                    <StyledTableRow key ={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
+                    <StyledTableCell align = "left">{row.nombre}</StyledTableCell>
+                    <StyledTableCell align = "left">{row.fecha}</StyledTableCell>
+                    <StyledTableCell align = "left">{row.remitente}</StyledTableCell>
+                    <StyledTableCell align = "left">{row.destinatario}</StyledTableCell>
+                    <StyledTableCell align = "left">{row.monto}</StyledTableCell>
+                    </StyledTableRow>
                 );
             })}
                         </TableBody>
