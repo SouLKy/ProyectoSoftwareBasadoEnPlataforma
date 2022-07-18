@@ -32,17 +32,15 @@ const Navbar = () =>{
                 <img className="imgLogo" alt="Logo" src={LogoPiggy}/>
                 <p className="textLogo">PYTYM <br></br>a tu comodidad</p>
             </NavLinkLogo>
-
-
             <div className={`links ${clicked ? 'active' : ''}`}>
-                <NavLink className="Mobile" onClick={handleClick} to="/">Inicio</NavLink>
-                <NavLink className="Mobile" onClick={handleClick} to="/Contact">Contacto</NavLink>
-                <NavLink className="Mobile" onClick={handleClick} to="/Querys">Consultas frecuentes</NavLink>
                 {
                 isLogged
                 
                 ?
                 <>
+                    <NavLink className="Mobile" onClick={handleClick} to = "/Account">
+                    Inicio
+                    </NavLink>
                     <NavLink className="Mobile" onClick={handleClick} to="/Information">
                         Información cuenta
                     </NavLink>
@@ -53,9 +51,12 @@ const Navbar = () =>{
                 </>
 
                 :
+                <>
+                <NavLink className="Mobile" onClick={handleClick} to="/">Inicio</NavLink>
                 <NavLink className="Mobile" onClick={handleClick} to="/Login">
                     Iniciar Sesión
                 </NavLink>
+                </>
                 }
             </div>
 
@@ -70,24 +71,15 @@ const Navbar = () =>{
 
 
             
-
+            
             
             <NavMenu className="Menu">
-                <NavLink to="/">
-                    Inicio
-                </NavLink>
-                <NavLink to = "/Lobby">
-                    Lobby
-                </NavLink>
-                <NavLink to="/Contact">
-                    Contacto
-                </NavLink>
-                <NavLink to="/Querys">
-                Consultas Frecuentes
-                </NavLink>
                 {
                 isLogged ?
                 <>
+                <NavLink to = "/Account">
+                    Inicio
+                </NavLink>
                 <NavLink to="/Information">
                     Información cuenta
                 </NavLink>
@@ -96,14 +88,14 @@ const Navbar = () =>{
                 </NavLink>
                 </>
                 :
+                <>
+                <NavLink to="/">
+                    Inicio
+                </NavLink>
                 <NavLink to="/Login">
                     Iniciar Sesión
                 </NavLink>
-
-                
-
-
-                
+                </>
                 }
             </NavMenu>
             
@@ -112,27 +104,5 @@ const Navbar = () =>{
     </>
     )
 };
-
-/*
-<NavMenu className="Menu">
-    <NavLink to="/Inicio">
-        Inicio
-    </NavLink>
-    <NavLink to="/Contacto">
-        Contacto
-    </NavLink>
-    <NavLink to="/ConsultasFrecuentes">
-        Consultas Frecuentes
-     </NavLink>
-     <NavLink to="/InfoCuenta">
-        Información de la cuenta
-    </NavLink>
-    <NavLink to="/CerrarSesión">
-        Cerrar Sesión
-    </NavLink>
-</NavMenu>
-
-
-*/
 
 export default Navbar;

@@ -33,7 +33,7 @@ const Login = () =>{
     useEffect(()=>{
         if(isLogged) {
             //../Home
-            navigate("../", {replace: true})
+            navigate("../Account", {replace: true})
         }
     },[isLogged, navigate]) //verifica si está logeado o no, si lo está manda al home. lo verifica viendo si cambia el isLogged
 
