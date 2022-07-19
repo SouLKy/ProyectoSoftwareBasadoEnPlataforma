@@ -5,7 +5,7 @@ export default function SendFile ({InfText,Rut}) {
         headers: {
             "Content-Type":"text/plain"
         },
-        body: [InfText,Rut]
+        body: JSON.stringify({ "InfText": InfText, "Rut": Rut })
     }).then(res => {
         if(!res.ok) throw new Error('error response')
         return res.json()
