@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Form , Title, InputC, InputC2} from "./UploadElements";
+import { Form , Title, InputC, InputC2, Label, ButtonWrapper} from "./UploadElements";
 import SendFile from '../../services/SendFile'
 const Upload = () =>{
     const [InfText, setInfText] = useState("")
@@ -33,8 +33,12 @@ const Upload = () =>{
     return (
         <>
             <Title>Sube tu archivo 📝</Title>
+            
             <Form onSubmit={sendInfo}>
+                <ButtonWrapper>
+                <Label>Click</Label>
                 <InputC2 onChange={SaveInfo} type='file' accept=".txt" background='rgba(34, 73, 87, 100%);' color="#000" display="block"></InputC2>
+                </ButtonWrapper>
                 <InputC onChange={ev => setRut(ev.target.value)} value={Rut} type='text' background='#FFFFFF' color="#000" placeholder="Rut" display="block"></InputC>
                 <InputC type='submit' background='rgba(34, 73, 87, 100%);' color="#fff" value="Subir archivo" display="block"></InputC>
             </Form>
