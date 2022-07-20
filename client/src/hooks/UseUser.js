@@ -18,7 +18,7 @@ const useUser = () =>{
         LoginService({username, password})
             .then(jwt => {
                 setStateLoading({loading: false, error:false})
-                document.cookie = `token=${jwt}; max-age=${10}; path=/; samesite=strict`
+                document.cookie = `token=${jwt}; max-age=${3600}; path=/; samesite=strict`
                 //window.sessionStorage.setItem('jwt', true)
                 setJwt(jwt)
             })
