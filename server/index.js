@@ -65,8 +65,7 @@ app.post("/login", async function(req, res){
 }
 */
 app.post('/balance',async function(req,res){
-    //const id = req.body
-    const id = 1
+    const {id} = req.body
     const balance = await productosModel.saldoPorCuenta(id)
     res.json({
         abonos: balance[0],
@@ -121,10 +120,8 @@ app.post('/accountBank',async function(req,res){
 }
 */
 app.post('/transaction',async function(req,res){
-    //const {id,n} = req.body
-    const id = 1
-    const n = 2
-    if(id==0){
+    const {id,n} = req.body
+    if(n==0){
         const transaction = await productosModel.transaccionesPorCuenta(id)
         res.json({
             descripciones: transaction[0],
