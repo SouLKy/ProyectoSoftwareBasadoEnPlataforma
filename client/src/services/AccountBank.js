@@ -1,7 +1,7 @@
 const ENDPOINT = 'http://localhost:3001'
 
 
-export default function AccountBank ({cookie}) {
+export default function AccountBank (cookie) {
     return fetch(`${ENDPOINT}/accountBank`,{
         method: 'POST',
         headers: {

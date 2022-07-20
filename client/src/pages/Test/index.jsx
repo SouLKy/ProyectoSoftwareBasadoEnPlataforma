@@ -14,12 +14,7 @@ const Test = () =>{
 
     const [cookie, setCookie] = useState(()=>ObtenerCookie());
 
-    AccountBank(cookie).then(res =>{
-        console.log(res.data)
-    }).catch( err =>{
-        alert("error")
-        console.log(err)
-    })
+    AccountBank(cookie)
 
     return (
         <>
