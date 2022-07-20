@@ -90,7 +90,6 @@ app.post('/balance',async function(req,res){
 app.post('/accountBank',async function(req,res){
     const {cookie} = req.body
     console.log(cookie)
-    /*
     jwt.verify(cookie,process.env.ACCESS_TOKEN_SECRET,async function(err,user){
         if(err){
             res.sendStatus(403)
@@ -103,7 +102,7 @@ app.post('/accountBank',async function(req,res){
                 id: cuenta[1]
             })
         }
-    })*/
+    })
 })
 /*
 {

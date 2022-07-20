@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import AccountBank from "../../services/AccountBank";
 
 const Test = () =>{
@@ -13,12 +13,21 @@ const Test = () =>{
     }
 
     const [cookie, setCookie] = useState(()=>ObtenerCookie());
+    const [banco, setBanco] = useState()
 
-    AccountBank(cookie)
+    useEffect(() => {
+        AccountBank(cookie).then( res => {
+            const {bancos,id} = res
+            setBanco(bancos)
+        }).catch(err=>{
+            console.log(err);
+        })
+    }, []);
+    
 
     return (
         <>
-            
+            <h2>{banco}</h2>
         </>
     )
 }
