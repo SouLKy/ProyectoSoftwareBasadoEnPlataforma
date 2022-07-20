@@ -11,6 +11,7 @@ import Lobby from './pages/Lobby'
 import Upload from './pages/Upload';
 import Register from './pages/Register';
 import {UserContextProvider} from './Context/UserContext'
+import Test from './pages/Test';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/Upload" exact element={<Upload/>}></Route>
           <Route path="/Register" exact element={<Register/>}></Route>
           <Route path="/:rest/*" exact element={<Error/>}></Route>
+          <Route path="/Test" exact element={<Test/>}></Route>
       </Routes>
       <Footer/>
     </Router>

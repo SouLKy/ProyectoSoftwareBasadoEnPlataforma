@@ -1,6 +1,6 @@
 const ENDPOINT = 'http://localhost:3001'
 
-export default function AccountBank ({}) {
+export default function AccountBank () {
     return fetch(`${ENDPOINT}/accountBank`,{
         method: 'POST',
         headers: {
@@ -11,6 +11,7 @@ export default function AccountBank ({}) {
         if(!res.ok) throw new Error('error response')
         return res.json()
     }).then(res=>{
-        return {bancos, id} = res
+        const {bancos, id} = res
+        return {bancos,id};
     })
 }
