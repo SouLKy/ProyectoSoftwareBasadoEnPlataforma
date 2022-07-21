@@ -37,16 +37,19 @@ const saldoPorCuenta = async (idCuenta)=>{  // retorna una tupla de [abonos,carg
     return([parseFloat(abonos),parseFloat(cargos)]);
 }
 
-const cuentasPorCliente = async (rut)=>{  // retorna una lista [[nombrebanco1,nombrebanco2,...,nombrebancoN],[id1,,id2..idN]] segun rut
+const cuentasPorCliente = async (rut)=>{  // retorna una lista [[nombrebanco1,nombrebanco2,...,nombrebancoN],[id1,,id2..idN],[numero1,numero2,...numeroN]] segun rut
     const cuentasQuery= await client.query(`select * from cuenta where rutcliente='${rut}'`);
     const listaCuentas=new Array(cuentasQuery.rowCount);
     const listaId=new Array(cuentasQuery.rowCount);
+    const listaNumeroCuenta=new Array(cuentasQuery.rowCount);
     for(var i=0;i<cuentasQuery.rowCount;i++){
         listaCuentas[i]=await cuentasQuery.rows[i]['nombrebanco'];
         listaId[i]=await cuentasQuery.rows[i]['idcuenta'];
+        listaNumeroCuenta[i]=await cuentasQuery.rows[i]['numerocuenta'];
     }
     
-    return([listaCuentas,listaId]);/// [[nombres de banco], [ids por cuenta]]
+   return([listaCuentas,listaId,listaNumeroCuenta]);/// [[nombres de banco], [ids por cuenta]]
+  // return cuentasQuery;
 }
 
 const transaccionesPorCuenta = async (idCuenta)=>{ //// obtiene TODAS las transacciones de la cuenta

@@ -20,7 +20,7 @@ const imprimirTransacciones = async (lista)=>{
     //console.log(a);
 
     /// prueba cuentasPorCliente
-    ///console.log(await productosModel.cuentasPorCliente('20168189-8'));
+    console.log(await productosModel.cuentasPorCliente('20168189-8'));
     
     /// prueba transaccionesPorCuenta
     ///console.log(await (await productosModel.transaccionesPorCuenta('1')));
@@ -34,6 +34,6 @@ const imprimirTransacciones = async (lista)=>{
 
 
     ///prueba obtenerInfoCuenta
-    console.log(await(productosModel.obtenerInfoCuenta('20168189-8')));
+    //console.log(await(productosModel.obtenerInfoCuenta('20168189-8')));
 }
 )()
