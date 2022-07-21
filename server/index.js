@@ -98,7 +98,8 @@ app.post('/accountBank',async function(req,res){
             const cuenta = await productosModel.cuentasPorCliente(rut)
             res.json({
                 bancos: cuenta[0],
-                id: cuenta[1]
+                id: cuenta[1],
+                numeroCuenta: cuenta[2]
             })
         }
     })
