@@ -152,6 +152,21 @@ app.post('/register',async function(req,res){
         }
     })
 })
+
+app.post('/createAccountBank',async function(req,res){
+    const {rut,numeroCuenta,banco,balance} = req.body
+    await productosModel.crearCuentaBancaria(rut,numeroCuenta,banco,balance,async function(err,reg){
+        if(err){
+            res.sendStatus(403)
+        }
+        else{
+            res.json({
+                estado: reg
+            })
+        }
+    })
+})
+
 //De aqui para abajo no tomar en cuenta el codigo Atte:Soulky
 //verifica si el token es correcto
 // Authorization: Bearer <token>
