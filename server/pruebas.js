@@ -20,10 +20,10 @@ const imprimirTransacciones = async (lista)=>{
     //console.log(a);
 
     /// prueba cuentasPorCliente
-    console.log(await productosModel.cuentasPorCliente('20168189-8'));
+    ////console.log(await productosModel.cuentasPorCliente('20168189-8'));
     
     /// prueba transaccionesPorCuenta
-    ///console.log(await (await productosModel.transaccionesPorCuenta('1')));
+    console.log(await (await productosModel.transaccionesPorCuenta('1')));
     //imprimirTransacciones( (await productosModel.nTransaccionesPorCuenta('1',5)));
 
     /////prueba registrarCliente

@@ -63,7 +63,11 @@ const transaccionesPorCuenta = async (idCuenta)=>{ //// obtiene TODAS las transa
         listaDescripciones[i]=await transaccionesQuery.rows[i]['descripcion'];
 
         const fecha=await transaccionesQuery.rows[i]['fechamovimiento'];
-        listaFechas[i]=fecha;
+        const dia=""+fecha.getDate();
+        const mes=""+fecha.getMonth()
+        const año=""+fecha.getFullYear();
+        const fechaString=""+dia.padStart(2, '0')+"-"+mes.padStart(2, '0')+"-"+año.padStart(2, '0');
+        listaFechas[i]=fechaString;
 
         const abono=await transaccionesQuery.rows[i]['abono'].replace('$','').replace(/,/g,'');
         const abonoInt=parseFloat(abono);
@@ -88,7 +92,11 @@ const nTransaccionesPorCuenta = async (idCuenta,n)=>{  //// obtiene las N transa
         listaDescripciones[i]=await transaccionesQuery.rows[i]['descripcion'];
 
         const fecha=await transaccionesQuery.rows[i]['fechamovimiento'];
-        listaFechas[i]=fecha;
+        const dia=""+fecha.getDate();
+        const mes=""+fecha.getMonth()
+        const año=""+fecha.getFullYear();
+        const fechaString=""+dia.padStart(2, '0')+"-"+mes.padStart(2, '0')+"-"+año.padStart(2, '0');
+        listaFechas[i]=fechaString;
 
         const abono=await transaccionesQuery.rows[i]['abono'].replace('$','').replace(/,/g,'');
         const abonoInt=parseFloat(abono);
