@@ -72,12 +72,14 @@ app.post('/balance',async function(req,res){
             montos: undefined
         })
     }
+    else{
     const balance = await productosModel.saldoPorCuenta(id)
     res.json({
         abonos: balance[0],
         cargos: balance[1],
         total: balance[0]+balance[1]
     })
+}
 })
 
 /*retorna un json con listas [[nombrebanco1,nombrebanco2,...,nombrebancoN],[id1,,id2..idN]] 
@@ -134,6 +136,7 @@ app.post('/transaction',async function(req,res){
             montos: undefined
         })
     }
+    else{
     if(n==0){
         const transaction = await productosModel.transaccionesPorCuenta(id)
         res.json({
@@ -150,6 +153,7 @@ app.post('/transaction',async function(req,res){
         montos: transaction[2]
     })
 }
+    }
 })
 
 app.post('/register',async function(req,res){
