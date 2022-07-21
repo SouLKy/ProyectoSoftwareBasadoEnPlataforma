@@ -12,7 +12,7 @@ export default function AccountBank (cookie) {
         if(!res.ok) throw new Error('error response')
         return res.json()
     }).then(res=>{
-        const {bancos, id} = res
-        return {bancos,id};
+        const {bancos, id,numeroCuenta} = res
+        return {bancos,id,numeroCuenta};
     })
 }

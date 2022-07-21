@@ -42,7 +42,6 @@ app.post("/api",ensureToken,(req,res)=>{
 app.post("/login", async function(req, res){
     const {username, password} = req.body
     const login = await productosModel.getLogin(username, password)
-    console.log(login)//Imprime nombre de usuario
     if(login==undefined){
         res.sendStatus(403);
     }
@@ -66,12 +65,21 @@ app.post("/login", async function(req, res){
 */
 app.post('/balance',async function(req,res){
     const {id} = req.body
+    if(id==undefined){
+        res.json({
+            descripciones: undefined,
+            fechas: undefined,
+            montos: undefined
+        })
+    }
+    else{
     const balance = await productosModel.saldoPorCuenta(id)
     res.json({
         abonos: balance[0],
         cargos: balance[1],
         total: balance[0]+balance[1]
     })
+}
 })
 
 /*retorna un json con listas [[nombrebanco1,nombrebanco2,...,nombrebancoN],[id1,,id2..idN]] 
@@ -88,7 +96,6 @@ app.post('/balance',async function(req,res){
 */
 app.post('/accountBank',async function(req,res){
     const {cookie} = req.body
-    console.log(cookie)
     jwt.verify(cookie,process.env.ACCESS_TOKEN_SECRET,async function(err,user){
         if(err){
             res.sendStatus(403)
@@ -98,7 +105,8 @@ app.post('/accountBank',async function(req,res){
             const cuenta = await productosModel.cuentasPorCliente(rut)
             res.json({
                 bancos: cuenta[0],
-                id: cuenta[1]
+                id: cuenta[1],
+                numeroCuenta: cuenta[2]
             })
         }
     })
@@ -121,6 +129,14 @@ app.post('/accountBank',async function(req,res){
 */
 app.post('/transaction',async function(req,res){
     const {id,n} = req.body
+    if(id==undefined){
+        res.json({
+            descripciones: undefined,
+            fechas: undefined,
+            montos: undefined
+        })
+    }
+    else{
     if(n==0){
         const transaction = await productosModel.transaccionesPorCuenta(id)
         res.json({
@@ -137,13 +153,14 @@ app.post('/transaction',async function(req,res){
         montos: transaction[2]
     })
 }
+    }
 })
 
 app.post('/register',async function(req,res){
     const {rut,nombre,contacto,username,password} = req.body
     await productosModel.registrarCliente(rut,nombre,contacto,username,password,async function(err,reg){
         if(err){
-            res.sendStatus(403)
+            res.sendStatus(400)
         }
         else{
             res.json({
@@ -157,7 +174,7 @@ app.post('/createAccountBank',async function(req,res){
     const {rut,nroCuenta,banco} = req.body
     await productosModel.crearCuentaBancaria(rut,parseInt(nroCuenta),banco,async function(err,reg){
         if(err){
-            res.sendStatus(403)
+            res.sendStatus(400)
         }
         else{
             res.json({
@@ -168,10 +185,9 @@ app.post('/createAccountBank',async function(req,res){
 })
 app.post('/infoAccount',async function(req,res){
     const {cookie} = req.body
-    console.log(cookie)
     jwt.verify(cookie,process.env.ACCESS_TOKEN_SECRET,async function(err,user){
         if(err){
-            res.sendStatus(403)
+            res.sendStatus(404)
         }
         else{
             const rut = user['rut']
@@ -186,12 +202,8 @@ app.post('/infoAccount',async function(req,res){
     })
 })
 
-//De aqui para abajo no tomar en cuenta el codigo Atte:Soulky
-//verifica si el token es correcto
-// Authorization: Bearer <token>
 function ensureToken(req,res,next){
     const bearerHeader = req.headers['authorization'];
-    console.log(bearerHeader)
     if(typeof bearerHeader !='undefined'){
         const bearer = bearerHeader.split(" ");
         const bearerToken = bearer[1];
@@ -202,14 +214,3 @@ function ensureToken(req,res,next){
         res.sendStatus(403);
     }
 }
-
-app.post("/l",async function(req,res){
-    const user = {
-        rut:'20168189-8'
-    }
-    jwt.sign(user,process.env.ACCESS_TOKEN_SECRET,{expiresIn:'1h'},(err,token)=>{
-        res.json({
-            token
-        })
-    })
-})
