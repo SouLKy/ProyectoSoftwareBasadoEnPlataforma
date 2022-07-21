@@ -27,6 +27,9 @@ const imprimirTransacciones = async (lista)=>{
     //imprimirTransacciones( (await productosModel.nTransaccionesPorCuenta('1',5)));
 
     /////prueba registrarCliente
-    console.log(await(productosModel.registrarCliente('20007475-4','nombre','contacto@gmail.com','username','123')));
+    ///console.log(await(productosModel.registrarCliente('20007475-4','nombre','contacto@gmail.com','username','123')));
+
+    /// prueba crearCuenta
+    ///console.log(await(productosModel.crearCuentaBancaria('20007475-4','Itau',0,'1223')));
 }
 )()
