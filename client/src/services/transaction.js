@@ -12,7 +12,7 @@ export default function transaction (id,n) {
         if(!res.ok) throw new Error('error response')
         return res.json()
     }).then(res=>{
-        const {descripciones, fechas,monto} = res
-        return {descripciones,fechas,monto};
+        const {descripciones, fechas,montos} = res
+        return {descripciones,fechas,montos};
     })
 }

@@ -1,6 +1,9 @@
-import React from "react";
-import { Title,Post,Subtitle, Content} from "./styles";
-import { Box, Button} from "@mui/material";
+import React, {useState, useEffect} from "react";
+import AccountBank from "../../services/AccountBank";
+import balance from "../../services/balance";
+import transaction from "../../services/transaction";
+import { Title,Subtitle, Content} from "./styles";
+import { bottomNavigationActionClasses, Box, Button, Card} from "@mui/material";
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,6 +13,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TablePagination from "@mui/material/TablePagination";
+import Grid from "@mui/material/Grid";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -34,20 +43,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   
 //DEFINICION DE LAS COLUMNAS FIJAS
 const columns = [
-    { id: 'idTrans', label: 'ID transaccion', minWidth: 170 },
-    { id: 'fecha', label: 'FECHA', minWidth: 100 },
-    {
-      id: 'Remitente',
-      label: 'Remitente',
-      minWidth: 170,
-      align: 'left',
-    },
-    {
-      id: 'Destino',
-      label: 'Destinatario',
-      minWidth: 170,
-      align: 'left',
-    },
+    { id: 'Detalle', label: 'Detalle', minWidth: 170 },
+    { id: 'Fecha', label: 'Fecha', minWidth: 100 },
+    
     {
       id: 'Dinero',
       label: 'Monto',
@@ -55,28 +53,98 @@ const columns = [
       align: 'left',
     },
   ];
-  function createData(nombre,fecha,remitente,destinatario,monto){
-    return {nombre,fecha,remitente,destinatario,monto}
+  function createData(Detalles,fecha,monto){
+    return {Detalles,fecha,monto}
   }
-  //AQUI TENEMOS QUE PONER LOS DATOS DE LA BASE DE DATOS PARA LLAMARLOS DESPUES
-  const rows =[
-    createData("asljda","20/02/2002","carlos","pedro",20000),
-    createData("asljda","20/02/2002","carlos","pedro",201230),
-    createData("asljda","20/02/2002","carlos","pedro",123120),
-    createData("asljda","20/02/2002","carlos","pedro",230),
-    createData("asljda","20/02/2002","carlos","pedro",84564),
-    createData("asljda","20/02/2002","carlos","pedro",1111),
-    createData("asljda","20/02/2002","carlos","pedro",20000),
-    createData("asljda","20/02/2002","carlos","pedro",20000),
-    createData("asljda","20/02/2002","carlos","pedro",20000),
-    createData("asljda","20/02/2002","carlos","pedro",20000),
-    createData("asljda","20/02/2002","carlos","pedro",9999),
-
-  ];
   
+  
+  
+
+const banks = [];
+const ids = [];
   
 export default function Transferencias(){
-    const [page, setPage] = React.useState(0);
+  const [rows, setRows] = useState([]);
+  const [bank, setBank] = React.useState('');
+  const handleChange = (event) =>{
+    setBank(event.target.value);
+  }
+  //Select de cuenta del banco
+  const [idCuenta, setIdC] = useState(1);
+ 
+  const cambio = (event) =>{
+    setIdC(event.target.value);
+  }
+  //ObtenerCookie entrega el token del usuario activo
+  const ObtenerCookie = ()=>{
+    const cookies = document.cookie.split(';').map(cookie =>
+      cookie.split('=')).reduce((accumulator, [key, value]) =>
+          ({...accumulator, [key.trim()]: decodeURIComponent(value)}),
+          {}
+      )
+  return cookies.token
+  }
+  
+  const [cookie, setCookie] = useState(()=>ObtenerCookie());
+  const [banco, setBanco] = useState()
+  const [id,setId] = useState()
+  const [abonos,setAbonos] = useState()
+  const [cargos,setCargos] = useState()
+  const [total,setTotal] = useState()
+  const [descripciones,setDescripciones] = useState()
+  const [fechas,setFechas] = useState()
+  const [montos,setMontos] = useState()
+  
+  useEffect(() => {
+    //el parametro cookie es el rut del usuario activa
+    //entrega los bancos vinculados al usuario y el id correspondiente
+    AccountBank(cookie).then( res => {
+        const {bancos,id} = res
+        setBanco(bancos)
+        setId(id)
+        for(const i in bancos){
+          banks.push(bancos[i])
+          
+        }
+        for(const j in id){
+          ids.push(id[j])
+        }
+    }).catch(err=>{
+        console.log(err);
+    })
+    
+    //el parametro corresponde al numero de cuenta
+    //entrega abonos, cargos y total de una cuenta bancaria
+    balance(idCuenta).then( res => {
+        const {abonos,cargos,total} = res
+        setAbonos(abonos)
+        setCargos(cargos)
+        setTotal(abonos+cargos)
+    }).catch(err=>{
+        console.log(err);
+    })
+    //el primer parametro corresponde al numero de cuenta y el segundo a la cantidad de transacciones a mostrar, 0=todas las transacciones de la cuenta
+    //entrega las descripciones, fechas y monto de los movimientos bancarios correspondiente a una cuenta
+    
+    transaction(idCuenta,0).then( res => {
+        const {descripciones,fechas,montos} = res
+        setDescripciones(descripciones)
+        setFechas(fechas)
+        setMontos(montos)
+        const rows2 = [];
+        for(const i in descripciones){
+          rows2.push(createData(descripciones[i],fechas[i],montos[i]))
+          
+        }
+        setRows(rows2)
+        
+    }).catch(err=>{
+        console.log(err);
+    })
+    
+  }, [idCuenta]); 
+     
+  const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     const handleChangePage = (event, newPage) => {
@@ -87,12 +155,48 @@ export default function Transferencias(){
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+    
     return(
         <Content>
-            <Paper elevation ={6} variant = "outlined">
-                <Title>Saldo Disponible</Title>
-                <Subtitle>$20.000</Subtitle>
-            </Paper>
+            <Title> </Title>
+            <Grid container spacing = {2}>
+            <Box alignItems = "center" sx={{ minWidth: 240 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Banco</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={bank}
+                  label="Banco"
+                  onChange={handleChange}
+                >
+                <MenuItem value = {banks[0]}>{banks[0]}</MenuItem>
+                <MenuItem value = {banks[1]}>{banks[1]}</MenuItem>
+                
+                </Select>
+              </FormControl>
+            </Box>
+            <Box alignItems = "center" sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">ID</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={idCuenta}
+                  label="ID"
+                  onChange={cambio}
+                >
+
+                <MenuItem value ={ids[0]} onClick={() => setIdC(ids[0])}>{ids[0]}</MenuItem>
+                <MenuItem value ={ids[1]} onClick={() => setIdC(ids[1])}>{ids[1]}</MenuItem>
+                
+                </Select>
+              </FormControl>
+              
+            </Box>
+            </Grid>
+            
+            <Title> </Title>
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                 <TableContainer sx={{ maxHeight: 440 }}>
                     <Table stickyHeader aria-label="sticky table">
@@ -109,10 +213,8 @@ export default function Transferencias(){
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                 return (
                     <StyledTableRow key ={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
-                    <StyledTableCell align = "left">{row.nombre}</StyledTableCell>
+                    <StyledTableCell align = "left">{row.Detalles}</StyledTableCell>
                     <StyledTableCell align = "left">{row.fecha}</StyledTableCell>
-                    <StyledTableCell align = "left">{row.remitente}</StyledTableCell>
-                    <StyledTableCell align = "left">{row.destinatario}</StyledTableCell>
                     <StyledTableCell align = "left">{row.monto}</StyledTableCell>
                     </StyledTableRow>
                 );
@@ -121,18 +223,39 @@ export default function Transferencias(){
                     </Table>
                 </TableContainer>
                 <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
+                  rowsPerPageOptions={[10, 25, 100]}
+                  component="div"
+                  count={rows.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Paper>  
+            <Title>
+                {console.log(rows)}
+                  {console.log(ids)}
+                 
+                  
+            </Title>
+            <Grid container spacing ={1} columnSpacing ={ {xs: 1}}>
+              <Card >
+                <Title>Abonos</Title>
+                <Subtitle>${abonos}</Subtitle>
+                
+              </Card>
+              <Card>
+                <Title>Cargos</Title>
+                <Subtitle>${cargos}</Subtitle>
+              </Card>
+              <Card>
+                <Title>Total</Title>
+                <Subtitle>${total}</Subtitle>
+              </Card>
+            </Grid>
             <Title> </Title>
             <Box textAlign = 'center'>
-                <Button variant = "contained">Haga click aqui para RP gratis</Button>
+                <Button variant = "contained">Insertar Cartola</Button>
             </Box>
             
         </Content>
