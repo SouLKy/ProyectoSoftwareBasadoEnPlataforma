@@ -166,6 +166,25 @@ app.post('/createAccountBank',async function(req,res){
         }
     })
 })
+app.post('/infoAccount',async function(req,res){
+    const {cookie} = req.body
+    console.log(cookie)
+    jwt.verify(cookie,process.env.ACCESS_TOKEN_SECRET,async function(err,user){
+        if(err){
+            res.sendStatus(403)
+        }
+        else{
+            const rut = user['rut']
+            const cuenta = await productosModel.obtenerInfoCuenta(rut)
+            res.json({
+                rut: cuenta[0],
+                nombre: cuenta[1],
+                contacto: cuenta[2],
+                usuario: cuenta[3]
+            })
+        }
+    })
+})
 
 //De aqui para abajo no tomar en cuenta el codigo Atte:Soulky
 //verifica si el token es correcto
