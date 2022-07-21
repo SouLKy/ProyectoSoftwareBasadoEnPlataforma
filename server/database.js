@@ -130,6 +130,13 @@ const crearCuentaBancaria = async (rut,numeroCuenta,banco)=>{
     return 'Registrado con exito';
 }
 
+const obtenerInfoCuenta = async (rut)=>{
+    const infoCuentaQuery= await client.query(`select * from cliente WHERE rut='${rut}'`);
+    const cliente=infoCuentaQuery.rows[0];
+    return[cliente['rut'],cliente['nombre'],cliente['contacto'],cliente['usuario']];
+}
+
+
 module.exports = {
     getLogin,
     saldoPorCuenta,
@@ -138,6 +145,7 @@ module.exports = {
     nTransaccionesPorCuenta,
     registrarCliente,
     crearCuentaBancaria,
+    obtenerInfoCuenta,
     async insertar(request,response) {
         const { tipo } = request.body;
         await client.query("insert into tipoMovimiento(tipo) values($1)", [tipo]);

@@ -31,5 +31,9 @@ const imprimirTransacciones = async (lista)=>{
 
     /// prueba crearCuenta
     ///console.log(await(productosModel.crearCuentaBancaria('20007475-4','Itau',0,'1223')));
+
+
+    ///prueba obtenerInfoCuenta
+    console.log(await(productosModel.obtenerInfoCuenta('20168189-8')));
 }
 )()
