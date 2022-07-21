@@ -1,9 +1,15 @@
 import React from 'react';
 import {Title, SubTitle, Imagen, ButtonReg, Container,Container2, Title2, Post, Text2, Subtitle, ContainerCol2} from './styles';
-
+import { useNavigate} from "react-router-dom";
 
 const Home = () => {
+  let navigate = useNavigate();
+  
+  const Go = () =>{
+    navigate("../Register", {replace: true})
+  }
   const listContact = ['soporte@gmail.com','+569 87654321','+51 2 234533']
+
 
   return (
 
@@ -15,7 +21,7 @@ const Home = () => {
         <ContainerCol2>
           <Title>Controla las finanzas de tu empresa</Title>
           <SubTitle>Carga tus cartolas al sistema y revisa las transacciones de tu empresa, todo en la palma de tu mano.</SubTitle>
-          <ButtonReg>REGISTRATE AHORA</ButtonReg>
+          <ButtonReg onClick={Go}>REGISTRATE AHORA</ButtonReg>
         </ContainerCol2>
       </Container>
 

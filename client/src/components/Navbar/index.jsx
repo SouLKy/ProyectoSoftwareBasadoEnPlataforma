@@ -41,8 +41,8 @@ const Navbar = () =>{
                     <NavLink className="Mobile" onClick={handleClick} to = "/Account">
                     Inicio
                     </NavLink>
-                    <NavLink className="Mobile" onClick={handleClick} to="/Information">
-                        Información cuenta
+                    <NavLink className="Mobile" onClick={handleClick} to="/Upload">
+                        Subir xxxxxxxx
                     </NavLink>
                 
                     <NavLink className="Mobile" onClick={Clicklogout} to="/Logout">
@@ -53,6 +53,9 @@ const Navbar = () =>{
                 :
                 <>
                 <NavLink className="Mobile" onClick={handleClick} to="/">Inicio</NavLink>
+                <NavLink className="Mobile" onClick={handleClick} to="/Register">
+                    Registrarse
+                </NavLink>
                 <NavLink className="Mobile" onClick={handleClick} to="/Login">
                     Iniciar Sesión
                 </NavLink>
@@ -80,8 +83,8 @@ const Navbar = () =>{
                 <NavLink to = "/Account">
                     Inicio
                 </NavLink>
-                <NavLink to="/Information">
-                    Información cuenta
+                <NavLink to="/Upload">
+                    Subir xxxxx
                 </NavLink>
                 <NavLink onClick={logout} to="/">
                     Cerrar sesión
@@ -91,6 +94,9 @@ const Navbar = () =>{
                 <>
                 <NavLink to="/">
                     Inicio
+                </NavLink>
+                <NavLink to="/Register">
+                    Registrarse
                 </NavLink>
                 <NavLink to="/Login">
                     Iniciar Sesión
