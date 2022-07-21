@@ -1,16 +1,28 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import register from "../../services/Register";
+import { Loading, ErrorUsuario } from "../Estado";
+import Modal from "../Modal"
+import { useNavigate} from "react-router-dom";
+
 const InputC = styled.input.attrs(props => ({
     type: props.type,
 }))`
-    
+    transition: width 0.5s cubic-bezier(.17,.67,.83,.67), background-color 2s cubic-bezier(.17,.67,.83,.67);
     display:${props => props.display};
     margin:auto;
-    margin-top:20px;
-
+    
+    @media screen and (max-width: 768px){
+        margin-top:20px;
+    }
+    @media screen and (min-width: 768px){
+        margin-top:30px;
+        font-size:25px;
+        height:50px;
+        width : 80%;
+    }
     max-width: 600px;
-    width : 60%;
+    width : 70%;
     height: 40px;
     
     text-decoration:none;
@@ -21,11 +33,17 @@ const InputC = styled.input.attrs(props => ({
     background: ${props => props.background};
 
     ::placeholder {
-        color : #000;
+        color : #00000090;
     }
 
     color : ${props => props.color};
     
+    cursor: ${props=>props.type === "submit" || props.type === "file"? "pointer" : "text"};
+    :hover{
+        background-color: ${props=>props.type === "submit" ? 
+        "#000" : ""
+        }
+    }
 `;
 
 const Text1 = styled.h2`
@@ -55,10 +73,23 @@ const FormRegister = () =>{
     const [rut, setRut] = useState('');
     const [nombre, setNombre] = useState('');
     const [contacto, setContacto] = useState('');
+    const [Error,setError] = useState(false);
+    const [clickModal,setClickModal] = useState(true);
+    const [loading,setLoading] = useState(false);
+    let navigate = useNavigate();
+    const handleClose = () =>{
+        setClickModal(false);
+    }
 
     const sendInfo = (ev) =>{
+        setLoading(true)
         ev.preventDefault();
-        register({ rut, nombre, contacto, username, password})
+        register({ rut, nombre, contacto, username, password}).then(estado => {
+            navigate("../login", {replace: true})
+        }).catch(err=>{
+            setError(true)
+            setLoading(false)
+        })
     }
 
     return (
@@ -74,8 +105,15 @@ const FormRegister = () =>{
                     <InputC onChange={ev =>setPassword(ev.target.value)} value={password} type='password' background='#FFFFFF' color="#000" placeholder="Contraseña" display="block"></InputC>
                 
                     <InputC type='submit' background='rgba(34, 73, 87, 100%);' color="#fff" value="Registrar" display="block"></InputC>
-            
                 </form>
+                {Error && clickModal &&
+                    <Modal onClose={handleClose}>
+                        <ErrorUsuario>Error, rellene los campos correctamente</ErrorUsuario>
+                    </Modal>
+                }
+                {loading &&
+                    <Loading></Loading>
+                }
             </div>
         </>
     )

@@ -1,19 +1,31 @@
 import React, {useState} from "react";
 import { Form , Title, InputC, InputC2, Label, ButtonWrapper} from "./UploadElements";
 import SendFile from '../../services/SendFile'
+import { Loading, ErrorUsuario } from "../../components/Estado"
+import Modal from "../../components/Modal"
 const Upload = () =>{
     const [InfText, setInfText] = useState("")
     const [Rut, setRut] = useState("")
     const [nroCuenta,setNroCuenta] = useState("")
+    const [clickModal,setClickModal] = useState(true);
+    const [loading,setLoading] = useState(false);
+    const [Error,setError] = useState(false);
+
     const sendInfo = (ev) =>{
+        setLoading(true)
         ev.preventDefault()
         SendFile({InfText,Rut,nroCuenta}).then(res =>{
+            setLoading(false);
             alert("se subió correctamente")
         }).catch( err =>{
-            alert("error")
-            console.log(err)
+            setError(true)
+            setLoading(false);
         })
 
+    }
+
+    const handleClose = () =>{
+        setClickModal(false);
     }
 
     const SaveInfo = (ev) =>{
@@ -37,7 +49,7 @@ const Upload = () =>{
             
             <Form onSubmit={sendInfo}>
                 <ButtonWrapper>
-                <Label>Click</Label>
+                <Label>Cargar</Label>
                 <InputC2 onChange={SaveInfo} type='file' accept=".txt" background='rgba(34, 73, 87, 100%);' color="#000" display="block"></InputC2>
                 </ButtonWrapper>
                 <InputC onChange={ev => setRut(ev.target.value)} value={Rut} type='text' background='#FFFFFF' color="#000" placeholder="Rut (22222222-2)" display="block"></InputC>
@@ -45,6 +57,15 @@ const Upload = () =>{
                 <InputC type='submit' background='rgba(34, 73, 87, 100%);' color="#fff" value="Subir archivo" display="block"></InputC>
             </Form>
             
+            {Error && clickModal &&
+                <Modal onClose={handleClose}>
+                    <ErrorUsuario>Error</ErrorUsuario>
+                </Modal>
+            }
+
+            {loading &&
+                <Loading></Loading>
+            }
         </>
     )
 }

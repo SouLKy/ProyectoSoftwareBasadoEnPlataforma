@@ -9,7 +9,7 @@ export const Form = styled.form`
 `
 
 export const Title = styled.h2`
-    font-size : 25px;
+    font-size : 35px;
     text-align : center;
     padding:60px;
 `;
@@ -17,13 +17,20 @@ export const Title = styled.h2`
 export const InputC = styled.input.attrs(props => ({
     type: props.type,
 }))`
-    
+    transition: width 0.5s cubic-bezier(.17,.67,.83,.67), background-color 2s cubic-bezier(.17,.67,.83,.67);
     display:${props => props.display};
     margin:auto;
+
+    @media screen and (min-width: 768px){
+        margin-top:30px;
+        font-size:25px;
+        height:50px;
+        width : 80%;
+    }
     margin-top:50px;
 
     max-width: 600px;
-    width : 60%;
+    width : 70%;
     height: 40px;
     
     text-decoration:none;
@@ -34,11 +41,17 @@ export const InputC = styled.input.attrs(props => ({
     background: ${props => props.background};
 
     ::placeholder {
-        color : #000;
+        color : #00000090;
     }
 
     color : ${props => props.color};
-    
+
+    cursor: ${props=>props.type === "submit" || props.type === "file"? "pointer" : "text"};
+    :hover{
+        background-color: ${props=>props.type === "submit" ? 
+        "#000" : ""
+        }
+    }
 `;
 
 export const ButtonWrapper = styled.button`
@@ -50,6 +63,7 @@ export const ButtonWrapper = styled.button`
 `
 
 export const Label = styled.label`
+    cursor: pointer;
     position: relative;
     z-index: 0;
     display: inline-block;
