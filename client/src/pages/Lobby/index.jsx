@@ -215,7 +215,7 @@ export default function Transferencias(){
                     <StyledTableRow key ={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
                     <StyledTableCell align = "left">{row.Detalles}</StyledTableCell>
                     <StyledTableCell align = "left">{row.fecha}</StyledTableCell>
-                    <StyledTableCell align = "left">{row.monto}</StyledTableCell>
+                    <StyledTableCell align = "left">{new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'CLP' }).format(row.monto)}</StyledTableCell>
                     </StyledTableRow>
                 );
             })}
@@ -233,29 +233,28 @@ export default function Transferencias(){
                 />
             </Paper>  
             <Title>
-                {console.log(rows)}
-                  {console.log(ids)}
+                
                  
                   
             </Title>
-            <Grid container spacing ={1} columnSpacing ={ {xs: 1}}>
+            <Grid container spacing ={1} margin = {20} columnSpacing ={ {xs: 1}}>
               <Card >
                 <Title>Abonos</Title>
-                <Subtitle>${abonos}</Subtitle>
+                <Subtitle>{new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'CLP' }).format(abonos)}</Subtitle>
                 
               </Card>
               <Card>
                 <Title>Cargos</Title>
-                <Subtitle>${cargos}</Subtitle>
+                <Subtitle>{new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'CLP' }).format(cargos)}</Subtitle>
               </Card>
               <Card>
                 <Title>Total</Title>
-                <Subtitle>${total}</Subtitle>
+                <Subtitle>{new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'CLP' }).format(total)}</Subtitle>
               </Card>
             </Grid>
             <Title> </Title>
             <Box textAlign = 'center'>
-                <Button variant = "contained">Insertar Cartola</Button>
+                <Button variant = "contained" href = "..\Upload">Insertar Cartola</Button>
             </Box>
             
         </Content>
