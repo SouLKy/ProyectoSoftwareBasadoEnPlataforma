@@ -1,12 +1,12 @@
 const ENDPOINT = 'http://localhost:3001'
 
-export default function newAccountB ({rut, balance, nroCuenta}) {
-    return fetch(`${ENDPOINT}/register`,{
+export default function newAccountB ({rut,nroCuenta, banco}) {
+    return fetch(`${ENDPOINT}/createAccountBank`,{
         method: 'POST',
         headers: {
             "Content-Type":"application/json"
         },
-        body: JSON.stringify({rut, balance, nroCuenta})
+        body: JSON.stringify({rut,nroCuenta, banco})
     }).then(res => {
         if(!res.ok) throw new Error('error response')
         return res.json()

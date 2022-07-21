@@ -154,8 +154,8 @@ app.post('/register',async function(req,res){
 })
 
 app.post('/createAccountBank',async function(req,res){
-    const {rut,numeroCuenta,banco,balance} = req.body
-    await productosModel.crearCuentaBancaria(rut,numeroCuenta,banco,balance,async function(err,reg){
+    const {rut,nroCuenta,banco} = req.body
+    await productosModel.crearCuentaBancaria(rut,parseInt(nroCuenta),banco,async function(err,reg){
         if(err){
             res.sendStatus(403)
         }

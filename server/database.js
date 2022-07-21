@@ -122,9 +122,10 @@ const registrarCliente = async (rut,nombre,contacto,usuario,contraseña)=>{
     return 'Registrado con exito';
 }
 
-const crearCuentaBancaria = async (rut,numeroCuenta,banco,balance)=>{  
+const crearCuentaBancaria = async (rut,numeroCuenta,banco)=>{
+    const balance = 0;
     const crearCuentaQuery=  await (await client.query(`insert into cuenta(rutcliente,nombrebanco,balance,numerocuenta) 
-    values('${rut}','${numeroCuenta}',${banco},'${balance}')`));
+    values('${rut}','${banco}',${balance},'${numeroCuenta}')`));
     //return registrarQuery;
     return 'Registrado con exito';
 }
