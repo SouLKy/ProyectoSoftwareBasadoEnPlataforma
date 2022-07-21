@@ -1,8 +1,10 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Form , Title, InputC, InputC2, Label, ButtonWrapper} from "./UploadElements";
 import SendFile from '../../services/SendFile'
 import { Loading, ErrorUsuario } from "../../components/Estado"
 import Modal from "../../components/Modal"
+import useUser from '../../hooks/UseUser'
+import { useNavigate} from "react-router-dom";
 const Upload = () =>{
     const [InfText, setInfText] = useState("")
     const [Rut, setRut] = useState("")
@@ -10,6 +12,14 @@ const Upload = () =>{
     const [clickModal,setClickModal] = useState(true);
     const [loading,setLoading] = useState(false);
     const [Error,setError] = useState(false);
+    const {isLogged} = useUser();
+    let navigate = useNavigate();
+    useEffect(() => {
+        if (!isLogged){
+            navigate("../Login", {replace: true})
+        } 
+    }, [isLogged,navigate]);
+
 
     const sendInfo = (ev) =>{
         setLoading(true)

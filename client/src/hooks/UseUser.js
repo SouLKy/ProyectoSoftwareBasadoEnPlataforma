@@ -36,7 +36,7 @@ const useUser = () =>{
         
         //window.location.reload();
         navigate("../login", {replace: true})
-    }, [setJwt])
+    }, [setJwt, navigate])
 
     return {
         isLogged : Boolean(jwt),
