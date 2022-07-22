@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import register from "../../services/Register";
 import { Loading, ErrorUsuario } from "../Estado";
 import Modal from "../Modal"
 import { useNavigate} from "react-router-dom";
+import useUser from '../../hooks/UseUser'
 
 const InputC = styled.input.attrs(props => ({
     type: props.type,
