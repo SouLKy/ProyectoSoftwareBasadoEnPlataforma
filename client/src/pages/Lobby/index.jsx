@@ -156,13 +156,14 @@ export default function Transferencias(){
       //Creacion de las tablas, cards, dropdowns.
         <Content>
             <Title> </Title>
-            <Grid container justifyContent = "space-evenly">
+            <Grid container justifyContent = "space-evenly" style={{ gap: 15 }}>
             <Box alignItems = "center" sx={{ minWidth: 120 }}>
-              <Card elevation = {6} justifyContent = "center">
+              <Card elevation = {6}>
                 <Title >Banco</Title>
-                <Subtitle>{  banks[0]}</Subtitle>
+                <Subtitle>{banks[0]}</Subtitle>
               </Card>
             </Box>
+            
             <Box alignItems = "center" sx={{ minWidth: 160 }}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Numero De Cuenta</InputLabel>
@@ -222,11 +223,6 @@ export default function Transferencias(){
                   onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Paper>  
-            <Title>
-                
-                 
-                  
-            </Title>
             <Grid container padding = {5} sx={{ mx: "auto" }} justifyContent = "space-evenly" style={{ gap: 15 }}>
               <Grid>
                 <Card padding = {10} elevation = {6}>
@@ -250,6 +246,12 @@ export default function Transferencias(){
             <Box textAlign = 'center'>
                 <Button variant = "contained" href = "..\Upload">Insertar Cartola</Button>
             </Box>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+
             
         </Content>
 
