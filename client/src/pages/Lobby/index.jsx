@@ -61,7 +61,7 @@ const columns = [
   
 
 const banks = [];
-const id2 =[];
+
   
 export default function Transferencias(){
   const [rows, setRows] = useState([]);
@@ -75,9 +75,7 @@ export default function Transferencias(){
  
   const cambio = (event) =>{
     setIdC(event.target.value);
-    for(const i in id2.length()){
-      id2.pop();
-    }
+    
   }
   //ObtenerCookie entrega el token del usuario activo
   const ObtenerCookie = ()=>{
@@ -91,33 +89,27 @@ export default function Transferencias(){
   
   const [cookie, setCookie] = useState(()=>ObtenerCookie());
   const [banco, setBanco] = useState()
-  const [id,setId] = useState()
+  const [id,setId] = useState([])
   const [abonos,setAbonos] = useState()
   const [cargos,setCargos] = useState()
   const [total,setTotal] = useState()
   const [descripciones,setDescripciones] = useState()
   const [fechas,setFechas] = useState()
   const [montos,setMontos] = useState()
+  const [numeroCuenta, setNumeroCuenta] = useState([])
   
   useEffect(() => {
     //el parametro cookie es el rut del usuario activa
     //entrega los bancos vinculados al usuario y el id correspondiente
     AccountBank(cookie).then( res => {
-        const {bancos,id} = res
+        const {bancos,id,numeroCuenta} = res
         setBanco(bancos)
         setId(id)
+        setNumeroCuenta(numeroCuenta)
         
         for(const i in bancos){
           banks.push(bancos[i])
-        }
-        for(const j in id){
-          id2.push(id[j])
-        }
-        
-        
-        
-        
-        
+        }     
     }).catch(err=>{
         console.log(err);
     })
@@ -142,52 +134,38 @@ export default function Transferencias(){
         setMontos(montos)
         const rows2 = [];
         for(const i in descripciones){
-          rows2.push(createData(descripciones[i],fechas[i],montos[i]))
-          
+          rows2.push(createData(descripciones[i],fechas[i],montos[i])) 
         }
         setRows(rows2)
-        
     }).catch(err=>{
         console.log(err);
     })
-    
   }, [idCuenta]); 
      
   const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
-
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
     
     return(
+      //Creacion de las tablas, cards, dropdowns.
         <Content>
             <Title> </Title>
-            <Grid container spacing = {2} justifyContent = "center">
-            <Box alignItems = "center" sx={{ minWidth: 240 }}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Banco</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={bank}
-                  label="Banco"
-                  onChange={handleChange}
-                >
-                <MenuItem value = {banks[0]}>{banks[0]}</MenuItem>
-                <MenuItem value = {banks[1]}>{banks[1]}</MenuItem>
-                
-                </Select>
-              </FormControl>
-            </Box>
+            <Grid container justifyContent = "space-evenly">
             <Box alignItems = "center" sx={{ minWidth: 120 }}>
+              <Card elevation = {6} justifyContent = "center">
+                <Title >Banco</Title>
+                <Subtitle>{  banks[0]}</Subtitle>
+              </Card>
+            </Box>
+            <Box alignItems = "center" sx={{ minWidth: 160 }}>
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">ID</InputLabel>
+                <InputLabel id="demo-simple-select-label">Numero De Cuenta</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
@@ -195,9 +173,9 @@ export default function Transferencias(){
                   label="ID"
                   onChange={cambio}
                 >
-                {id2.map((id) => {
+                {id.map((idx) => {
                 return(
-                  <MenuItem value ={id} onClick={() => setIdC(id)}>{id}</MenuItem>
+                  <MenuItem value ={idx} onChange={() => setIdC(idx)}>{numeroCuenta[id.indexOf(idx)]}</MenuItem>
                 )})}
                 
                 
@@ -249,27 +227,26 @@ export default function Transferencias(){
                  
                   
             </Title>
-            <Grid container padding = {1} sx={{ mx: "auto" }} justifyContent = "space-evenly">
+            <Grid container padding = {5} sx={{ mx: "auto" }} justifyContent = "space-evenly" style={{ gap: 15 }}>
               <Grid>
-                <Card padding = {30} elevation = {6}>
+                <Card padding = {10} elevation = {6}>
                   <Title >Abonos</Title>
                   <Subtitle>{new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'CLP' }).format(abonos)}</Subtitle>
                 
                 </Card>
               </Grid>
               <Grid>
-                <Card padding = {30} elevation = {6}>
+                <Card padding = {10} elevation = {6}>
                   <Title>Cargos</Title>
                   <Subtitle>{new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'CLP' }).format(cargos)}</Subtitle>
                 </Card>
               </Grid>
               
-              <Card padding = {30} elevation = {6}>
+              <Card padding = {10} elevation = {6} margin-top ={5}>
                 <Title>Total</Title>
                 <Subtitle>{new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'CLP' }).format(total)}</Subtitle>
               </Card>
             </Grid>
-            <Title> </Title>
             <Box textAlign = 'center'>
                 <Button variant = "contained" href = "..\Upload">Insertar Cartola</Button>
             </Box>
