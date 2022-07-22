@@ -56,24 +56,28 @@ const columns = [
   function createData(Detalles,fecha,monto){
     return {Detalles,fecha,monto}
   }
-  
+
   
   
 
 const banks = [];
-const ids = [];
+const id2 =[];
   
 export default function Transferencias(){
   const [rows, setRows] = useState([]);
-  const [bank, setBank] = React.useState('');
+  const [bank, setBank] = useState('');
   const handleChange = (event) =>{
     setBank(event.target.value);
   }
+
   //Select de cuenta del banco
-  const [idCuenta, setIdC] = useState(1);
+  const [idCuenta, setIdC] = useState();
  
   const cambio = (event) =>{
     setIdC(event.target.value);
+    for(const i in id2.length()){
+      id2.pop();
+    }
   }
   //ObtenerCookie entrega el token del usuario activo
   const ObtenerCookie = ()=>{
@@ -102,13 +106,18 @@ export default function Transferencias(){
         const {bancos,id} = res
         setBanco(bancos)
         setId(id)
+        
         for(const i in bancos){
           banks.push(bancos[i])
-          
         }
         for(const j in id){
-          ids.push(id[j])
+          id2.push(id[j])
         }
+        
+        
+        
+        
+        
     }).catch(err=>{
         console.log(err);
     })
@@ -159,7 +168,7 @@ export default function Transferencias(){
     return(
         <Content>
             <Title> </Title>
-            <Grid container spacing = {2}>
+            <Grid container spacing = {2} justifyContent = "center">
             <Box alignItems = "center" sx={{ minWidth: 240 }}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Banco</InputLabel>
@@ -186,9 +195,12 @@ export default function Transferencias(){
                   label="ID"
                   onChange={cambio}
                 >
-
-                <MenuItem value ={ids[0]} onClick={() => setIdC(ids[0])}>{ids[0]}</MenuItem>
-                <MenuItem value ={ids[1]} onClick={() => setIdC(ids[1])}>{ids[1]}</MenuItem>
+                {id2.map((id) => {
+                return(
+                  <MenuItem value ={id} onClick={() => setIdC(id)}>{id}</MenuItem>
+                )})}
+                
+                
                 
                 </Select>
               </FormControl>
@@ -237,17 +249,22 @@ export default function Transferencias(){
                  
                   
             </Title>
-            <Grid container spacing ={1} margin = {20} columnSpacing ={ {xs: 1}}>
-              <Card >
-                <Title>Abonos</Title>
-                <Subtitle>{new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'CLP' }).format(abonos)}</Subtitle>
+            <Grid container padding = {1} sx={{ mx: "auto" }} justifyContent = "space-evenly">
+              <Grid>
+                <Card padding = {30} elevation = {6}>
+                  <Title >Abonos</Title>
+                  <Subtitle>{new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'CLP' }).format(abonos)}</Subtitle>
                 
-              </Card>
-              <Card>
-                <Title>Cargos</Title>
-                <Subtitle>{new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'CLP' }).format(cargos)}</Subtitle>
-              </Card>
-              <Card>
+                </Card>
+              </Grid>
+              <Grid>
+                <Card padding = {30} elevation = {6}>
+                  <Title>Cargos</Title>
+                  <Subtitle>{new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'CLP' }).format(cargos)}</Subtitle>
+                </Card>
+              </Grid>
+              
+              <Card padding = {30} elevation = {6}>
                 <Title>Total</Title>
                 <Subtitle>{new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'CLP' }).format(total)}</Subtitle>
               </Card>
