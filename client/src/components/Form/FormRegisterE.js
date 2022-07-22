@@ -76,10 +76,17 @@ const FormRegister = () =>{
     const [Error,setError] = useState(false);
     const [clickModal,setClickModal] = useState(true);
     const [loading,setLoading] = useState(false);
+    const {isLogged} = useUser();
     let navigate = useNavigate();
     const handleClose = () =>{
         setClickModal(false);
     }
+
+    useEffect(() => {
+        if (isLogged){
+            navigate("../Account", {replace: true})
+        } 
+    }, [isLogged,navigate]);
 
     const sendInfo = (ev) =>{
         setLoading(true)

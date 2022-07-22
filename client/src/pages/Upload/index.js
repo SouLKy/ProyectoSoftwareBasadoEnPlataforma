@@ -26,7 +26,7 @@ const Upload = () =>{
         ev.preventDefault()
         SendFile({InfText,Rut,nroCuenta}).then(res =>{
             setLoading(false);
-            alert("se subió correctamente")
+            navigate("../Account", {replace: true})
         }).catch( err =>{
             setError(true)
             setLoading(false);
