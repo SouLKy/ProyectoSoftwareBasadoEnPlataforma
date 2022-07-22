@@ -20,23 +20,39 @@ export const InputC = styled.input.attrs(props => ({
     
     display:${props => props.display};
     margin:auto;
-    margin-top:50px;
+    @media screen and (max-width: 768px){
+        margin-top:20px;
+    }
+    @media screen and (min-width: 768px){
+        margin-top:30px;
+        font-size:25px;
+        height:50px;
+        width : 80%;
+    }
 
     max-width: 600px;
-    width : 60%;
+    width : 70%;
     height: 40px;
     
     text-decoration:none;
     border:none;
+    
 
     border-radius: 10px;
     text-align: center;
     background: ${props => props.background};
 
     ::placeholder {
-        color : #000;
+        color : #00000090;
     }
 
     color : ${props => props.color};
+
+    cursor: ${props=>props.type === "submit" || props.type === "file"? "pointer" : "text"};
+    :hover{
+        background-color: ${props=>props.type === "submit" ? 
+        "#000" : ""
+        }
+    }
     
 `;
