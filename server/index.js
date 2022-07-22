@@ -40,21 +40,26 @@ app.post("/api",ensureToken,(req,res)=>{
 })});
 
 app.post("/login", async function(req, res){
-    const {username, password} = req.body
-    const login = await productosModel.getLogin(username, password)
-    if(login==undefined){
-        res.sendStatus(403);
-    }
-    else{
-        const user = {
-            rut: login,
+    try{
+        const {username, password} = req.body
+        const login = await productosModel.getLogin(username, password)
+        if(login==undefined){
+            res.sendStatus(403);
         }
-        jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'}, (err, token) => {
-            res.json({
-            token
-        })
-        })
+        else{
+            const user = {
+                rut: login,
+            }
+            jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'}, (err, token) => {
+                res.json({
+                token
+            })
+            })
+        }
+    } catch(error){
+        console.log(error)
     }
+    
 })
 /*retorna un json con [abonos,cargos] relacionadas con la cuenta segun su id
 {
@@ -64,22 +69,27 @@ app.post("/login", async function(req, res){
 }
 */
 app.post('/balance',async function(req,res){
-    const {id} = req.body
-    if(id==undefined){
-        res.json({
-            descripciones: undefined,
-            fechas: undefined,
-            montos: undefined
-        })
+    try{
+        const {id} = req.body
+        if(id==undefined){
+            res.json({
+                descripciones: undefined,
+                fechas: undefined,
+                montos: undefined
+            })
+        }
+        else{
+            const balance = await productosModel.saldoPorCuenta(id)
+            res.json({
+                abonos: balance[0],
+                cargos: balance[1],
+                total: balance[0]+balance[1]
+            })
+        }
+    }catch(error){
+        console.log(error)
     }
-    else{
-    const balance = await productosModel.saldoPorCuenta(id)
-    res.json({
-        abonos: balance[0],
-        cargos: balance[1],
-        total: balance[0]+balance[1]
-    })
-}
+    
 })
 
 /*retorna un json con listas [[nombrebanco1,nombrebanco2,...,nombrebancoN],[id1,,id2..idN]] 
@@ -95,22 +105,28 @@ app.post('/balance',async function(req,res){
 }
 */
 app.post('/accountBank',async function(req,res){
-    const {cookie} = req.body
-    jwt.verify(cookie,process.env.ACCESS_TOKEN_SECRET,async function(err,user){
-        if(err){
-            res.sendStatus(403)
-        }
-        else{
-            const rut = user['rut']
-            const cuenta = await productosModel.cuentasPorCliente(rut)
-            res.json({
-                bancos: cuenta[0],
-                id: cuenta[1],
-                numeroCuenta: cuenta[2]
-            })
-        }
-    })
+    try{
+        const {cookie} = req.body
+        jwt.verify(cookie,process.env.ACCESS_TOKEN_SECRET,async function(err,user){
+            if(err){
+                res.sendStatus(403)
+            }
+            else{
+                const rut = user['rut']
+                const cuenta = await productosModel.cuentasPorCliente(rut)
+                res.json({
+                    bancos: cuenta[0],
+                    id: cuenta[1],
+                    numeroCuenta: cuenta[2]
+                })
+            }
+        })
+    }catch(error){
+        console.log(error)
+    }
+    
 })
+
 /*
 {
     "descripciones": [
@@ -128,89 +144,116 @@ app.post('/accountBank',async function(req,res){
 }
 */
 app.post('/transaction',async function(req,res){
-    const {id,n} = req.body
-    if(id==undefined){
-        res.json({
-            descripciones: undefined,
-            fechas: undefined,
-            montos: undefined
-        })
+    try{
+        const {id,n} = req.body
+        if(id==undefined){
+            res.json({
+                descripciones: undefined,
+                fechas: undefined,
+                montos: undefined
+            })
+        }
+        else{
+            if(n==0){
+                const transaction = await productosModel.transaccionesPorCuenta(id)
+                res.json({
+                    descripciones: transaction[0],
+                    fechas: transaction[1],
+                    montos: transaction[2]
+                })
+            }
+            else{
+                const transaction = await productosModel.nTransaccionesPorCuenta(id,n)
+                res.json({
+                    descripciones: transaction[0],
+                    fechas: transaction[1],
+                    montos: transaction[2]
+                })
+            }
+        }
+    }catch(error){
+        console.log(error)
     }
-    else{
-    if(n==0){
-        const transaction = await productosModel.transaccionesPorCuenta(id)
-        res.json({
-            descripciones: transaction[0],
-            fechas: transaction[1],
-            montos: transaction[2]
-        })
-    }
-    else{
-    const transaction = await productosModel.nTransaccionesPorCuenta(id,n)
-    res.json({
-        descripciones: transaction[0],
-        fechas: transaction[1],
-        montos: transaction[2]
-    })
-}
-    }
+    
 })
 
 app.post('/register',async function(req,res){
-    const {rut,nombre,contacto,username,password} = req.body
-    await productosModel.registrarCliente(rut,nombre,contacto,username,password,async function(err,reg){
-        if(err){
-            res.sendStatus(400)
-        }
-        else{
-            res.json({
-                estado: reg
-            })
-        }
-    })
+    try{
+        const {rut,nombre,contacto,username,password} = req.body
+        await productosModel.registrarCliente(rut,nombre,contacto,username,password,async function(err,reg){
+            if(err){
+                res.sendStatus(400)
+            }
+            else{
+                res.json({
+                    estado: reg
+                })
+            }
+        })
+    }catch(error){
+        console.log(error)
+    }
+    
 })
 
 app.post('/createAccountBank',async function(req,res){
-    const {rut,nroCuenta,banco} = req.body
-    await productosModel.crearCuentaBancaria(rut,parseInt(nroCuenta),banco,async function(err,reg){
-        if(err){
-            res.sendStatus(400)
-        }
-        else{
-            res.json({
-                estado: reg
-            })
-        }
-    })
+    try{
+        const {rut,nroCuenta,banco} = req.body
+        await productosModel.crearCuentaBancaria(rut,parseInt(nroCuenta),banco,async function(err,reg){
+            if(err){
+                res.sendStatus(400)
+            }
+            else{
+                res.json({
+                    estado: reg
+                })
+            }
+        })
+    }catch(error){
+        console.log(error)
+    }
+    
 })
+
+
 app.post('/infoAccount',async function(req,res){
-    const {cookie} = req.body
-    jwt.verify(cookie,process.env.ACCESS_TOKEN_SECRET,async function(err,user){
-        if(err){
-            res.sendStatus(404)
-        }
-        else{
-            const rut = user['rut']
-            const cuenta = await productosModel.obtenerInfoCuenta(rut)
-            res.json({
-                rut: cuenta[0],
-                nombre: cuenta[1],
-                contacto: cuenta[2],
-                usuario: cuenta[3]
-            })
-        }
-    })
+    try{
+        const {cookie} = req.body
+        jwt.verify(cookie,process.env.ACCESS_TOKEN_SECRET,async function(err,user){
+            if(err){
+                res.sendStatus(404)
+            }
+            else{
+                const rut = user['rut']
+                const cuenta = await productosModel.obtenerInfoCuenta(rut)
+                res.json({
+                    rut: cuenta[0],
+                    nombre: cuenta[1],
+                    contacto: cuenta[2],
+                    usuario: cuenta[3]
+                })
+            }
+        })
+    }catch(error){
+        console.log(error)
+    }
+    
 })
 
 function ensureToken(req,res,next){
-    const bearerHeader = req.headers['authorization'];
-    if(typeof bearerHeader !='undefined'){
-        const bearer = bearerHeader.split(" ");
-        const bearerToken = bearer[1];
-        req.token = bearerToken;
-        next();
+    try{
+        const bearerHeader = req.headers['authorization'];
+        if(typeof bearerHeader !='undefined'){
+            const bearer = bearerHeader.split(" ");
+            const bearerToken = bearer[1];
+            req.token = bearerToken;
+            next();
+        }
+        else{
+            res.sendStatus(403);
+        }
+    }catch(error){
+        console.log(error)
     }
-    else{
-        res.sendStatus(403);
-    }
+    
 }
