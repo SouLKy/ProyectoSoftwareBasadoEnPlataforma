@@ -9,7 +9,7 @@ const Upload = () =>{
     const [InfText, setInfText] = useState("")
     const [Rut, setRut] = useState("")
     const [nroCuenta,setNroCuenta] = useState("")
-    const [clickModal,setClickModal] = useState(true);
+
     const [loading,setLoading] = useState(false);
     const [Error,setError] = useState(false);
     const {isLogged} = useUser();
@@ -34,9 +34,7 @@ const Upload = () =>{
 
     }
 
-    const handleClose = () =>{
-        setClickModal(false);
-    }
+
 
     const SaveInfo = (ev) =>{
         const file = ev.target.files[0]
@@ -67,11 +65,7 @@ const Upload = () =>{
                 <InputC type='submit' background='rgba(34, 73, 87, 100%);' color="#fff" value="Subir archivo" display="block"></InputC>
             </Form>
             
-            {Error && clickModal &&
-                <Modal onClose={handleClose}>
-                    <ErrorUsuario>Error</ErrorUsuario>
-                </Modal>
-            }
+
 
             {loading &&
                 <Loading></Loading>

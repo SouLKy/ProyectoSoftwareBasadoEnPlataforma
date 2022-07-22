@@ -12,6 +12,6 @@ export default function register ({rut, nombre, contacto, username, password}) {
         return res.json()
     }).then(res=>{
         const {estado} = res
-        alert(estado)
+        return estado
     })
 }

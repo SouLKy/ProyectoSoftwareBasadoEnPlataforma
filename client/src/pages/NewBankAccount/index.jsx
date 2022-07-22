@@ -12,6 +12,7 @@ const NewBankAccount = ()=>{
     const sendAccount = (ev)=>{
         ev.preventDefault()
         newAccountB({rut:Rut, nroCuenta:NroCuenta, banco:"Scotiabank"}).then(res =>{
+            navigate("../Account", {replace: true})
             alert("Cuenta creada exitosamente")
         }).catch( err =>{
             alert("error")

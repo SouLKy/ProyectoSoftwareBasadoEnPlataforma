@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import styled from "styled-components";
-import register from "../../services/Register";
+import Register from "../../services/Register";
 import { Loading, ErrorUsuario } from "../Estado";
 import Modal from "../Modal"
 import { useNavigate} from "react-router-dom";
@@ -74,14 +74,9 @@ const FormRegister = () =>{
     const [rut, setRut] = useState('');
     const [nombre, setNombre] = useState('');
     const [contacto, setContacto] = useState('');
-    const [Error,setError] = useState(false);
-    const [clickModal,setClickModal] = useState(true);
-    const [loading,setLoading] = useState(false);
     const {isLogged} = useUser();
+    
     let navigate = useNavigate();
-    const handleClose = () =>{
-        setClickModal(false);
-    }
 
     useEffect(() => {
         if (isLogged){
@@ -90,14 +85,11 @@ const FormRegister = () =>{
     }, [isLogged,navigate]);
 
     const sendInfo = (ev) =>{
-        setLoading(true)
-        ev.preventDefault();
-        register({ rut, nombre, contacto, username, password}).then(estado => {
-            navigate("../login", {replace: true})
-        }).catch(err=>{
-            setError(true)
-            setLoading(false)
-        })
+        ev.preventDefault()
+        Register({ rut, nombre, contacto, username, password})
+        .then( 
+            navigate("../Login", {replace: true})
+            )
     }
 
     return (
@@ -114,14 +106,6 @@ const FormRegister = () =>{
                 
                     <InputC type='submit' background='rgba(34, 73, 87, 100%);' color="#fff" value="Registrar" display="block"></InputC>
                 </form>
-                {Error && clickModal &&
-                    <Modal onClose={handleClose}>
-                        <ErrorUsuario>Error, rellene los campos correctamente</ErrorUsuario>
-                    </Modal>
-                }
-                {loading &&
-                    <Loading></Loading>
-                }
             </div>
         </>
     )

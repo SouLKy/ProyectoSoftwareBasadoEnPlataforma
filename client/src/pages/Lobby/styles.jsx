@@ -3,8 +3,6 @@ import styled from "styled-components";
 export const Content = styled.div`
     width:100%;
     position:center;
-    min-height: 100%;
-    
 `;
 
 export const Title = styled.h1`
@@ -45,5 +43,5 @@ export const table = styled.table`
 
 `;
 export const th = styled.th`
-    font-style:roboto:
+    font-style:roboto;
 `;
