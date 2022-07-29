@@ -114,17 +114,17 @@ const registrarCliente = async (rut,nombre,contacto,usuario,contraseña)=>{
     //// verificar que el rut no este registrado
     const buscarRutsQuery= await (await client.query(`select * from cliente c where rut='${rut}'`)).rowCount;
     if(buscarRutsQuery=='1'){
-        return 'Error (el rut ya fue registrado)';
+        throw new Error ('el rut ya fue registrado');
     }
     //// verificar que el nombre no este registrado
     const buscarNombreQuery= await (await client.query(`select * from cliente c where nombre='${nombre}'`)).rowCount;
     if(buscarNombreQuery=='1'){
-        return 'Error (el nombre ya fue registrado)';
+        throw new Error ('el nombre ya fue registrado');
     }
     //// verificar que el nombre de usuario no este registrado
     const buscarNombreDeUsuario= await (await client.query(`select * from cliente c where usuario='${usuario}'`)).rowCount;
     if(buscarNombreDeUsuario=='1'){
-        return 'Error (el nombre de usuario ya fue registrado)';
+        throw new Error ( 'el nombre de usuario ya fue registrado');
     }
     ///insert into cliente(rut,nombre,contacto,usuario,contraseña) values('20007475-4','nombre','contacto@gmail.com','username','123')
     const registrarQuery= await (await client.query(`insert into cliente(rut,nombre,contacto,usuario,contraseña) 

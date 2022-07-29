@@ -61,6 +61,39 @@ app.post("/login", async function(req, res){
     }
     
 })
+
+app.post('/register',async function(req,res){
+    try{
+        const {rut,nombre,contacto,username,password} = req.body
+        await productosModel.registrarCliente(rut,nombre,contacto,username,password,async function(err,reg){
+            
+            /*
+            if(err){
+                console.log("errrrror")
+                res.sendStatus(400)
+            }
+            else{
+                console.log("NO error")
+                res.json({
+                    estado: 'true'
+                })
+            }*/
+        }
+        ).then(reg=>{
+            res.json({
+                estado: reg
+            })
+        }).catch(err=>{
+            console.log(err)
+            res.sendStatus(400)
+        })
+
+
+    }catch(error){
+        console.log(error)
+    }
+    
+})
 /*retorna un json con [abonos,cargos] relacionadas con la cuenta segun su id
 {
     "abonos": 31622174,
@@ -177,24 +210,6 @@ app.post('/transaction',async function(req,res){
     
 })
 
-app.post('/register',async function(req,res){
-    try{
-        const {rut,nombre,contacto,username,password} = req.body
-        await productosModel.registrarCliente(rut,nombre,contacto,username,password,async function(err,reg){
-            if(err){
-                res.sendStatus(400)
-            }
-            else{
-                res.json({
-                    estado: reg
-                })
-            }
-        })
-    }catch(error){
-        console.log(error)
-    }
-    
-})
 
 app.post('/createAccountBank',async function(req,res){
     try{
