@@ -7,7 +7,7 @@ import Modal from '../../components/Modal'
 const NewBankAccount = ()=>{
     const [Rut,setRut] = useState("")
     const [NroCuenta,setNroCuenta] = useState("")
-    const {accountbank,isLogged,isLoading, hasError} = useUser();
+    const {newaccountbank,isLogged,isLoading, hasError} = useUser();
     const [clickModal,setClickModal] = useState(true);
     
     let navigate = useNavigate();
@@ -22,7 +22,7 @@ const NewBankAccount = ()=>{
 
     const sendAccount = (ev)=>{
         ev.preventDefault()
-        accountbank({Rut, NroCuenta})
+        newaccountbank({Rut, NroCuenta})
     }
 
     useEffect(() => {

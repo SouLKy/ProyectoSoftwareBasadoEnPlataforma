@@ -3,7 +3,7 @@ import { useNavigate} from "react-router-dom";
 import Context from '../Context/UserContext'
 import LoginService from '../services/Login' 
 import Register from "../services/Register";
-import AccountBank from '../services/AccountBank'
+import NewAccountB from '../services/NewAccountB'
 const useUser = () =>{
     let navigate = useNavigate();
     const {jwt, setJwt} = useContext(Context)
@@ -53,9 +53,9 @@ const useUser = () =>{
             })
     },[])
 
-    const accountbank = useCallback(({Rut,NroCuenta})=>{
+    const newaccountbank = useCallback(({Rut,NroCuenta})=>{
         setStateLoading({loading: true, error: false})
-        AccountBank({rut:Rut, nroCuenta:NroCuenta, banco:"Scotiabank"}).then(res =>{
+        NewAccountB({rut:Rut, nroCuenta:NroCuenta, banco:"Scotiabank"}).then(res =>{
             setStateLoading({loading: false, error:false})
             navigate("../Account", {replace: true})
         }).catch( err =>{
@@ -69,7 +69,7 @@ const useUser = () =>{
         login,
         logout,
         register,
-        accountbank,
+        newaccountbank,
         isLoading : stateLoading.loading,
         hasError: stateLoading.error
     }

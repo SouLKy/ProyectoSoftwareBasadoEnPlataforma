@@ -90,7 +90,36 @@ app.post('/register',async function(req,res){
 
 
     }catch(error){
-        console.log(error)
+        res.sendStatus(400)
+    }
+    
+})
+
+app.post('/createAccountBank',async function(req,res){
+    try{
+        const {rut,nroCuenta,banco} = req.body
+        await productosModel.crearCuentaBancaria(rut,parseInt(nroCuenta),banco,async function(err,reg){
+            /*
+            if(err){
+                res.sendStatus(400)
+            }
+            else{
+                res.json({
+                    estado: reg
+                })
+            }*/
+        }
+        ).then(reg =>{
+            res.json({
+                estado:reg
+        })
+        }).catch(err =>{
+                res.sendStatus(400)
+            })
+
+
+        }catch(error){
+            res.sendStatus(400)
     }
     
 })
@@ -211,24 +240,7 @@ app.post('/transaction',async function(req,res){
 })
 
 
-app.post('/createAccountBank',async function(req,res){
-    try{
-        const {rut,nroCuenta,banco} = req.body
-        await productosModel.crearCuentaBancaria(rut,parseInt(nroCuenta),banco,async function(err,reg){
-            if(err){
-                res.sendStatus(400)
-            }
-            else{
-                res.json({
-                    estado: reg
-                })
-            }
-        })
-    }catch(error){
-        console.log(error)
-    }
-    
-})
+
 
 
 app.post('/infoAccount',async function(req,res){
