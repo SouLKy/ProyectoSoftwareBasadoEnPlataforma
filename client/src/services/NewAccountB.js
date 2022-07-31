@@ -8,7 +8,7 @@ export default function newAccountB ({rut,nroCuenta, banco}) {
         },
         body: JSON.stringify({rut,nroCuenta, banco})
     }).then(res => {
-        if(!res.ok) throw new Error('error response')
+        if(!res.ok) throw new Error('error:'+res)
         return res.json()
     }).then(res=>{
         const {estado} = res
