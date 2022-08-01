@@ -19,6 +19,7 @@ export const ErrorUsuario = styled.p`
     }
     @media screen and (min-width: 768px){
         margin-left:20px;
+        font-size:60px;
     }
     @media screen and (min-height:1000px){
         font-size:40px

@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
 }
+
 .App {
   text-align: center;
 }
@@ -70,6 +71,7 @@ body{
   line-height: 29px;
   color: #fff;
   text-decoration: overline #000;
+  font-family: 'Fira Sans', sans-serif;
 }
 .Footer{
   width: 100%;
@@ -81,7 +83,8 @@ body{
 
 .Footer2{
   width: 100%;
-
+  font-family: 'Fira Sans', sans-serif;
+  letter-spacing: 4px;
   position: absolute;
   left: 0%;
   bottom: 0%;

@@ -23,15 +23,16 @@ export const SubTitle = styled.h4`
 `;
 
 export const Imagen = styled(IndexPage)`
+  min-width:250px;
   @media screen and (max-width: 768px){
     width: 100%;
-    height: 100%;
+    flex:1;
   }
 
-  @media screen and (min-width: 769px){
-    width: 100%;
-    height: 460px;
+  @media screen and (min-width: 768px){
+    flex:0.8;
   }
+
 `;
 
 export const Button = styled.button`
@@ -69,7 +70,6 @@ export const ButtonReg = styled(Button)`
 
 export const Container = styled.div`
   display: flex;
-  height: 100%;
   background-color: #47B5FF;
   flex-wrap: wrap;
 `;
@@ -81,8 +81,10 @@ export const Container2 = styled(Container)`
 `;
 export const ContainerCol2 = styled(Container)`
   flex-direction: column;
-  @media screen and (max-width: 768px){
-    justify-content: center;
+  justify-content: center;
+  
+  @media screen and (max-width: 1320px){
+    flex:1;
   }
   
 `

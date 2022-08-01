@@ -15,16 +15,13 @@ const ContentModal = styled.div`
     :hover{
         background-color:rgba(34,73,87,0.9);
     }
-    @media screen and (min-width: 765px){
-        bottom:20%;
-        left:47%;
-    }
-    @media screen and (max-width: 765px){
+
+
         top:12%;
         bottom:12%;
         left:10%;
         right:10%;
-    }
+
 `;
 
 const CloseModal = styled.button.attrs(props => ({

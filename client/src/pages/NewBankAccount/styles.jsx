@@ -9,9 +9,11 @@ export const Form = styled.form`
 `
 
 export const Title = styled.h2`
-    font-size : 25px;
+    font-size : 35px;
+    color :#2e3c47;
     text-align : center;
     padding:60px;
+    font-family: sans-serif;
 `;
 
 export const InputC = styled.input.attrs(props => ({
@@ -50,6 +52,7 @@ export const InputC = styled.input.attrs(props => ({
 
     cursor: ${props=>props.type === "submit" || props.type === "file"? "pointer" : "text"};
     :hover{
+        
         background-color: ${props=>props.type === "submit" ? 
         "#000" : ""
         }

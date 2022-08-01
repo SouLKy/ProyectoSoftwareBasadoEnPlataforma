@@ -51,7 +51,7 @@ const useUser = () =>{
                 setStateLoading({loading: false, error:true})
                 console.log(err)
             })
-    },[])
+    },[navigate])
 
     const newaccountbank = useCallback(({Rut,NroCuenta})=>{
         setStateLoading({loading: true, error: false})
@@ -62,7 +62,7 @@ const useUser = () =>{
             setStateLoading({loading: false, error:true})
             console.log(err)
         })
-    },[])
+    },[navigate])
 
     return {
         isLogged : Boolean(jwt),

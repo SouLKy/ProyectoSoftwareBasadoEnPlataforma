@@ -16,10 +16,10 @@ z-index : 2;
 
 export const Nav = styled.nav`
     background : #06283D;
-    height : 80px;
+    height : 90px;
     display: flex;
     justify-content: space-between;
-    padding: 1.5% 4%;
+    padding: 0% 4%;
 
 
     .links{
@@ -74,12 +74,17 @@ export const Nav = styled.nav`
     `
 
 export const NavLink = styled(Link)`
-    color : #fff;
+    display:block;
+    color : #ffffff;
     display : flex;
     align-items: center;
     text-decoration: none;
     padding: 0 1rem;
-    height: 100%;
+    font-size: 30px;
+    font-family: sans-serif;
+
+    transition: 0.4s;
+    
     cursor: pointer;
     &:not(hover){
       opacity: 0.4;
@@ -89,12 +94,12 @@ export const NavLink = styled(Link)`
         color: #15cdfc;
     }
     &:hover {
-      background: rgba(255, 255, 255, .4);
+      background: #d1c8c8;
+      color : #01143d;
       opacity: 1;
-      
-      border-radius: 4px;
       outline: none;
       border: none;
+      padding: 24px 10px;
     }
 `
 
@@ -147,7 +152,9 @@ export const Bars = styled.div`
 `;
 
 export const NavLinkLogo = styled(Link)`
-  color : #fff;
+  color : #f3efef;
+  font-family: 'Fira Sans', sans-serif;
+  font-size:20px;
   display : flex;
   align-items: center;
   text-decoration: none;

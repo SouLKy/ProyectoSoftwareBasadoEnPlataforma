@@ -15,9 +15,7 @@ const Home = () => {
 
     <>
       <Container>
-        <Container>
-          <Imagen></Imagen>
-        </Container>
+        <Imagen></Imagen>
         <ContainerCol2>
           <Title>Controla las finanzas de tu empresa</Title>
           <SubTitle>Carga tus cartolas al sistema y revisa las transacciones de tu empresa, todo en la palma de tu mano.</SubTitle>
