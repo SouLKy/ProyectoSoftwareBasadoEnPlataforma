@@ -121,16 +121,23 @@ const registrarCliente = async (rut,nombre,contacto,usuario,contraseña)=>{
     if(buscarNombreQuery=='1'){
         throw new Error ('el nombre ya fue registrado');
     }
+
+    const buscarContactoQuery= await (await client.query(`select * from cliente c where contacto='${contacto}'`)).rowCount;
+    if(buscarContactoQuery=='1'){
+        throw new Error ('este contacto ya ha sido registrado');
+    }
     //// verificar que el nombre de usuario no este registrado
     const buscarNombreDeUsuario= await (await client.query(`select * from cliente c where usuario='${usuario}'`)).rowCount;
     if(buscarNombreDeUsuario=='1'){
         throw new Error ( 'el nombre de usuario ya fue registrado');
     }
     ///insert into cliente(rut,nombre,contacto,usuario,contraseña) values('20007475-4','nombre','contacto@gmail.com','username','123')
-    const registrarQuery= await (await client.query(`insert into cliente(rut,nombre,contacto,usuario,contraseña) 
-    values('${rut}','${nombre}','${contacto}','${usuario}','${contraseña}')`));
+    
+        const registrarQuery= await (await client.query(`insert into cliente(rut,nombre,contacto,usuario,contraseña) 
+        values('${rut}','${nombre}','${contacto}','${usuario}','${contraseña}')`));
+        return 'Registrado con exito';
     //return registrarQuery;
-    return 'Registrado con exito';
+    
 }
 
 const crearCuentaBancaria = async (rut,numeroCuenta,banco)=>{
@@ -138,7 +145,7 @@ const crearCuentaBancaria = async (rut,numeroCuenta,banco)=>{
     const crearCuentaQuery=  await (await client.query(`insert into cuenta(rutcliente,nombrebanco,balance,numerocuenta) 
     values('${rut}','${banco}',${balance},'${numeroCuenta}')`));
     //return registrarQuery;
-    return 'Registrado con exito';
+    return 'cuenta registrada con exito';
 }
 
 const obtenerInfoCuenta = async (rut)=>{

@@ -63,7 +63,6 @@ app.post("/login", async function(req, res){
 })
 
 app.post('/register',async function(req,res){
-    try{
         const {rut,nombre,contacto,username,password} = req.body
         await productosModel.registrarCliente(rut,nombre,contacto,username,password,async function(err,reg){
             
@@ -80,18 +79,13 @@ app.post('/register',async function(req,res){
             }*/
         }
         ).then(reg=>{
-            res.json({
+            res.status(200).json({
                 estado: reg
             })
         }).catch(err=>{
-            console.log(err)
-            res.sendStatus(400)
+            res.statusMessage = String(err)
+            res.status(400).end()
         })
-
-
-    }catch(error){
-        res.sendStatus(400)
-    }
     
 })
 

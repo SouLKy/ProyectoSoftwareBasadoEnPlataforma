@@ -49,7 +49,6 @@ const useUser = () =>{
                 navigate("../Login", {replace: true})
             }).catch(err=>{
                 setStateLoading({loading: false, error:true})
-                console.log(err)
             })
     },[navigate])
 
@@ -60,7 +59,6 @@ const useUser = () =>{
             navigate("../Account", {replace: true})
         }).catch( err =>{
             setStateLoading({loading: false, error:true})
-            console.log(err)
         })
     },[navigate])
 

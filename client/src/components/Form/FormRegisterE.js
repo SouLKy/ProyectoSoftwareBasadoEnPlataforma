@@ -46,7 +46,7 @@ const FormRegister = () =>{
                 <form onSubmit={sendInfo}>
                     <InputC onChange={ev => setRut(ev.target.value)} value={rut} type='text' background='#FFFFFF' color="#000" placeholder="Rut" display="block"></InputC>
                     <InputC onChange={ev => setNombre(ev.target.value)} value={nombre} type='text' background='#FFFFFF' color="#000" placeholder="Nombre" display="block"></InputC>
-                    <InputC onChange={ev => setContacto(ev.target.value)} value={contacto} type='text' background='#FFFFFF' color="#000" placeholder="Contacto" display="block"></InputC>
+                    <InputC onChange={ev => setContacto(ev.target.value)} value={contacto} type='text' background='#FFFFFF' color="#000" placeholder="Contacto (correo o celular)" display="block"></InputC>
                     <InputC onChange={ev => setUsername(ev.target.value)} value={username} type='text' background='#FFFFFF' color="#000" placeholder="Usuario" display="block"></InputC>
                     <InputC onChange={ev =>setPassword(ev.target.value)} value={password} type='password' background='#FFFFFF' color="#000" placeholder="Contraseña" display="block"></InputC>
                 

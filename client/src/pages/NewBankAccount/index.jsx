@@ -33,8 +33,8 @@ const NewBankAccount = ()=>{
 
     const ChangeNumCuenta = (ev) =>{
         const value = ev.target.value
-        if ( value < 0){
-            setNroCuenta(0)
+        if ( value < 1){
+            setNroCuenta(1)
         }else{
             setNroCuenta(value)
         }
