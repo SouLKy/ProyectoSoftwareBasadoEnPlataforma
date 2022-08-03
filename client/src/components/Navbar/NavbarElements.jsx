@@ -38,7 +38,10 @@ export const Nav = styled.nav`
         color: #000;
         font-size: 2rem;
         display: block;
+        padding:32px 0px;
+        transition:none;
       }
+      
       @media(min-width: 768px){
         opacity:0;
         position: initial;
@@ -46,7 +49,6 @@ export const Nav = styled.nav`
         display: none;
         a{
           color: #000;
-          
         }
 
       }
@@ -63,10 +65,11 @@ export const Nav = styled.nav`
       left: 0;
       right: 0;
       text-align: center;
-      a{
+      .Mobile.active{
         font-size: 2rem;
         margin-top: 1rem;
-        color: #000;
+        color: #15cdfc;
+        
       }
     }
   
@@ -83,7 +86,8 @@ export const NavLink = styled(Link)`
     font-size: 30px;
     font-family: sans-serif;
 
-    transition: 0.4s;
+    transition: all 0.8s 0.4s;
+    margin-right: 2px;
     
     cursor: pointer;
     &:not(hover){
@@ -94,12 +98,13 @@ export const NavLink = styled(Link)`
         color: #15cdfc;
     }
     &:hover {
-      background: #d1c8c8;
+      background: #dff6ffe2;
       color : #01143d;
       opacity: 1;
       outline: none;
       border: none;
       padding: 24px 10px;
+      transition: all 0.6s;
     }
 `
 

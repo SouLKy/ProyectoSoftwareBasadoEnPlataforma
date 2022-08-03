@@ -139,17 +139,17 @@ export const Post = styled.div`
       transform: translate(-1000px, 0px);
       width: 250px;
       &.animation2{
-        transition:transform 1.5s cubic-bezier(.02,.97,.39,.79) 0.7s, background-color 1.5s ease 1s;
+        transition:transform 0.5s cubic-bezier(.02,.97,.39,.79), background-color 1.5s ease;
       }
       &.animation{
-        transition:transform 1.5s cubic-bezier(.02,.97,.39,.79), background-color 1.5s ease;
+        transition:transform 0.5s cubic-bezier(.02,.97,.39,.79) 0.7s, background-color 1.5s ease 1s;
       }
     }
   
     @media screen and (min-width: 769px){
       transform: translate(-3000px, 0px);
       width: 400px;
-      transition:transform 1s cubic-bezier(.02,.97,.39,.79), background-color 1.5s ease;
+      transition:transform 0.7s cubic-bezier(.02,.97,.39,.79), background-color 1.5s ease;
     }
 
     &.animation.true{

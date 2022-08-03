@@ -52,7 +52,9 @@ const Navbar = () =>{
 
                 :
                 <>
-                <NavLink className="Mobile" onClick={handleClick} to="/">Inicio</NavLink>
+                <NavLink className="Mobile" onClick={handleClick} to="/">
+                    Inicio
+                </NavLink>
                 <NavLink className="Mobile" onClick={handleClick} to="/Register">
                     Registrarse
                 </NavLink>
