@@ -136,31 +136,31 @@ export const Post = styled.div`
 
 
     @media screen and (max-width: 768px){
-      transform: translate(-1000px, 0px);
+      transform: translate3d(-1000px, 0px, 0);
       width: 250px;
       &.animation2{
-        transition:transform 0.5s cubic-bezier(.02,.97,.39,.79), background-color 1.5s ease;
+        transition:transform 0.5s cubic-bezier(.02,.97,.39,.79) 0.7s, background-color 1.5s ease;
       }
       &.animation{
-        transition:transform 0.5s cubic-bezier(.02,.97,.39,.79) 0.7s, background-color 1.5s ease 1s;
+        transition:transform 0.5s cubic-bezier(.02,.97,.39,.79), background-color 1.5s ease;
       }
     }
   
     @media screen and (min-width: 769px){
-      transform: translate(-3000px, 0px);
+      transform: translate3d(-3000px, 0px, 0);
       width: 400px;
       transition:transform 0.7s cubic-bezier(.02,.97,.39,.79), background-color 1.5s ease;
     }
 
     &.animation.true{
       opacity:1;
-      transform: translate(0px, 0px);
+      transform: translate3d(0px, 0px, 0);
       background-color: #47B5FF;
     }
 
     &.animation2.true{
       opacity:1;
-      transform: translate(0px, 0px);
+      transform: translate3d(0px, 0px, 0);
       background-color: #47B5FF;
     }
 
