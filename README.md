@@ -1,8 +1,18 @@
-# Proyecto de Software Basado En Plataforma
+# Proyecto de Software Basado En Plataformas
 
-#### Proyecto realizado para la universidad. Consta de frontend (carpeta client) y backend (carpeta server).
+# ¿De qué se trata?
+
+Es un proyecto realizado en la univiersidad para un cliente real, en este caso se tenía que realizar cargas de cartolas a las cuentas (mediante la web), enviaremos esto a nuestro primer backend donde realizaremos un proceso de ETL, cargando los datos a nuestra DB, para luego poder visualizar con la web en el apartado principal del inicio de sesión. Se pueden registrar nuevos usuarios y cargar nuevas cuentas con cartolas. En el apartado principal al haber iniciado sesión encontraremos un resumen de nuestros montos y cuentas.
+
+------------------
+
+#### Arquitectura. 
 
 #
+
+Consta de frontend (carpeta client) y backend (carpeta server). DB (postgresql) está hosteada en railway
+
+------------------
 
 ### Frontend <img align="right" width="50px" src="https://user-images.githubusercontent.com/97411557/182109857-228cbcff-7b2e-4f87-a553-96f4e0bdb427.png">
 
