@@ -30,20 +30,6 @@ body{
 .textLogo{
   margin-left: 10px;
 }
-
-/* parte del hamburguer*/
-#open span:nth-child(1){
-  transform: rotate(45deg);
-  top: 13px;
-}
-#open span:nth-child(2){
-  opacity:0;
-}
-#open span:nth-child(3){
-  transform: rotate(-45deg);
-  top: 13px;
-}
-
 /*NavLink (menu cuando se hace click en hamburger)*/
 .Mobile{ 
   border-bottom: 5px solid #000;

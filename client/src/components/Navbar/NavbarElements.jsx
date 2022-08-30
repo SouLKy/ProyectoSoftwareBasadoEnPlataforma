@@ -82,12 +82,12 @@ export const NavLink = styled(Link)`
     display : flex;
     align-items: center;
     text-decoration: none;
-    padding: 0 1rem;
+    padding: 24px 1px;
     font-size: 30px;
     font-family: sans-serif;
 
-    transition: all 0.8s 0.4s;
-    margin-right: 2px;
+    transition: all 0.6;
+    margin: 0px 20px;
     
     cursor: pointer;
     &:not(hover){
@@ -101,10 +101,10 @@ export const NavLink = styled(Link)`
       background: #dff6ffe2;
       color : #01143d;
       opacity: 1;
-      outline: none;
-      border: none;
-      padding: 24px 10px;
-      transition: all 0.6s;
+      outline: transparent;
+      border: 2px solid #fff;
+      padding: 24px 10px ;
+      transition: background-color 0.8s, color 0s, padding 0.8s;
     }
 `
 
@@ -152,6 +152,17 @@ export const Bars = styled.div`
     }
     :not(#open):hover span:nth-child(3){
       transform: scaleX(.8);
+    }
+    &#open span:nth-child(1){
+      transform: rotate(45deg);
+      top: 13px;
+    }
+    &#open span:nth-child(2){
+      opacity:0;
+    }
+    &#open span:nth-child(3){
+      transform: rotate(-45deg);
+      top: 13px;
     }
   }
 `;
