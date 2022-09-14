@@ -26,6 +26,17 @@ body{
   z-index:0;
   object-fit: cover;
 }
+.LogoImg{
+  display: flex;
+  flex-direction: row;
+  color: rgb(226, 215, 215);
+}
+.LogoImg:hover{
+  color: rgb(127, 165, 187);
+}
+.SvgLogo{
+  width: 80px;
+}
 
 .textLogo{
   margin-left: 10px;
